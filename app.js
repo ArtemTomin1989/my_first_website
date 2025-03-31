@@ -1,8 +1,9 @@
 require("dotenv").config();
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
-const PORT = process.env.PORT || 7777;
+const port = process.env.PORT || 7777;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -15,5 +16,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.listen(PORT);
-console.log(`Server is running on http://localhost:${PORT}`);
+const start = async () => {
+  await mongoose.connect(`${process.env.DB_URL}`);
+
+  app.listen(port);
+
+  console.log(
+    `Сервер запущено на порту ${port}, клік на http://localhost:${port}`
+  );
+};
+
+start();
