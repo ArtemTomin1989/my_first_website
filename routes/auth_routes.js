@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
     console.log(`Нового користувача ${new_user.email} додано`);
     await new_user.save();
   }
-  return res.redirect("/");
+  return res.redirect("/add_product");
 });
 
 router.get("/login", (req, res) => {
@@ -46,7 +46,8 @@ router.post("/login", async (req, res) => {
   }
 
   console.log(`Користувач ${user.email} успішно увійшов`);
-  return res.redirect("/");
+  return res.redirect("/add_product");
 });
+
 
 module.exports = router;
