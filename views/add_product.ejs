@@ -6,13 +6,18 @@
     <title>Add Product</title>
   </head>
   <body>
-    <form action="add_new_product" method="POST">
+    <form action="/add_product" method="POST">
       <h1>Add Product</h1>
       <input type="text" name="name" placeholder="Product Name" required />
       <input type="number" name="price" placeholder="Price" required />
+      <textarea
+        name="description"
+        placeholder="Product Description"
+        required
+      ></textarea>
       <button type="submit">Add</button>
     </form>
 
-    <a href="/product/list">View Products</a>
+    <a href="/all_products">View Products</a>
   </body>
 </html>

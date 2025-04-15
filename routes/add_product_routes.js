@@ -8,11 +8,11 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, price } = req.body;
-  const new_product = new db_product({ name, price });
+  const { name, price, description } = req.body;
+  const new_product = new db_product({ name, price, description });
   await new_product.save();
   console.log(`Товар ${new_product.name} додано`);
-  return res.redirect("/product/list");
+  return res.redirect("/all_products");
 });
 
 module.exports = router;

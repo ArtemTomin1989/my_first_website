@@ -5,6 +5,7 @@ const app = express();
 const index_routes = require("./routes/index_routes");
 const auth_routes = require("./routes/auth_routes");
 const add_product_routes = require("./routes/add_product_routes");
+const all_products_routes = require("./routes/all_products_routes");
 
 const port = process.env.PORT || 7777;
 
@@ -18,6 +19,7 @@ app.set("view engine", "ejs");
 app.use("/", index_routes);
 app.use("/auth", auth_routes);
 app.use("/add_product", add_product_routes);
+app.use("/all_products", all_products_routes);
 
 const start = async () => {
   await mongoose.connect(`${process.env.DB_URL}`);
