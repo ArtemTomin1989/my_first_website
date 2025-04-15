@@ -19,8 +19,11 @@ router.post("/register", async (req, res) => {
       email,
       password: hashedPassword,
     });
-    console.log(`Нового користувача ${new_user.email} додано`);
     await new_user.save();
+
+    req.session.userId = new_user._id;
+
+    console.log(`Нового користувача ${new_user.email} додано`);
   }
   return res.redirect("/add_product");
 });
@@ -45,9 +48,10 @@ router.post("/login", async (req, res) => {
     return res.redirect("/auth/login");
   }
 
+  req.session.userId = user._id;
+
   console.log(`Користувач ${user.email} успішно увійшов`);
   return res.redirect("/add_product");
 });
-
 
 module.exports = router;

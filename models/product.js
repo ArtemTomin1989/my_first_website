@@ -12,6 +12,11 @@ const productSchema = new Schema({
   description: {
     type: String,
   },
+
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "user", // назва моделі користувача
+  },
 });
 
 module.exports = model("product", productSchema);

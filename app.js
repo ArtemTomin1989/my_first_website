@@ -1,17 +1,26 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const index_routes = require("./routes/index_routes");
+const mongoose = require("mongoose");
+const session = require("express-session");
+
 const auth_routes = require("./routes/auth_routes");
+const index_routes = require("./routes/index_routes");
 const add_product_routes = require("./routes/add_product_routes");
 const all_products_routes = require("./routes/all_products_routes");
 
 const port = process.env.PORT || 7777;
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/views"));
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: `${process.env.DB_USERNAME}`,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.engine("ejs", require("ejs").renderFile);
 app.set("view engine", "ejs");
