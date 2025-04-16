@@ -22,6 +22,11 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.locals.userId = req.session.userId;
+  next();
+});
+
 app.engine("ejs", require("ejs").renderFile);
 app.set("view engine", "ejs");
 

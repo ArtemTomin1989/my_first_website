@@ -50,8 +50,13 @@ router.post("/login", async (req, res) => {
 
   req.session.userId = user._id;
 
-  console.log(`Користувач ${user.email} успішно увійшов`);
   return res.redirect("/add_product");
+});
+
+router.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
 });
 
 module.exports = router;
