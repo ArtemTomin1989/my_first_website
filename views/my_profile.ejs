@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Profile</title>
+  </head>
+  <body>
+    <%- include("partials/header") %>
+
+    <h1>User Profile</h1>
+
+    <% if (user.avatarUrl) { %>
+    <img src="<%= user.avatarUrl %>" alt="Avatar" width="150" />
+    <% } %>
+
+    <ul>
+      <li>Nickname: <%= user.nickname %></li>
+      <li>Email: <%= user.email %></li>
+      <li>Age: <%= user.age %></li>
+      <li>Bio: <%= user.bio %></li>
+      <li>Phone: <%= user.phoneNumber %></li>
+      <li>City: <%= user.location %></li>
+      <li>Registered: <%= new Date(user.createdAt).toLocaleDateString() %></li>
+      <li>Last Login: <%= new Date(user.lastLogin).toLocaleDateString() %></li>
+    </ul>
+  </body>
+</html>

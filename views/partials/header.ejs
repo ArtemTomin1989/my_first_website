@@ -1,14 +1,14 @@
 <nav style="background-color: #f0f0f0; padding: 10px; display: flex; gap: 10px">
-  <a href="/">🏠 Home Page</a>
+  <a href="/"> Home Page</a>
 
-  <a href="/all_products">📦 All Products</a>
+  <a href="/all_products"> All Products</a>
 
   <% if (!userId) { %>
-  <a href="/auth/login">🔐 Login</a>
-  <a href="/auth/register">📝 Sign Up</a>
+  <a href="/auth/login"> Login</a>
+  <a href="/auth/register"> Sign Up</a>
   <% } else { %>
-  <a href="/add_product">➕ Add Product</a>
-  <a href="/auth/logout">🚪 Logout</a>
+  <a href="/my_profile"> My Profile</a>
+  <a href="/add_product"> Add Product</a>
+  <a href="/auth/logout"> Logout</a>
   <% } %>
-
 </nav>

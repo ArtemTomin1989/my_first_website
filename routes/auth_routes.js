@@ -18,6 +18,14 @@ router.post("/register", async (req, res) => {
     const new_user = new db_user({
       email,
       password: hashedPassword,
+      nickname: "",
+      avatarUrl: "",
+      age: 18,
+      bio: "",
+      phoneNumber: "",
+      location: "",
+      createdAt: Date.now(),
+      lastLogin: Date.now(),
     });
     await new_user.save();
 
