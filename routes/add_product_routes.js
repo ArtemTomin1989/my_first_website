@@ -11,19 +11,25 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, price, description } = req.body;
+  try {
+    const { name, price, description } = req.body;
 
-  const new_product = new db_product({
-    name,
-    price,
-    description,
-    user: req.session.userId,
-  });
+    const new_product = new db_product({
+      name,
+      price,
+      description,
+      user: req.session.userId,
+    });
 
-  await new_product.save();
+    await new_product.save();
 
-  console.log(`Товар ${new_product.name} додано`);
-  return res.redirect("/all_products");
+    console.log(`Товар ${new_product.name} додано`);
+    return res.redirect("/all_products");
+  } catch (error) {
+    console.error(`Error adding product: ${error.message}`);
+
+    return res.redirect("/");
+  }
 });
 
 module.exports = router;

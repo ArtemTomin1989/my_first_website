@@ -9,6 +9,7 @@ const index_routes = require("./routes/index_routes");
 const add_product_routes = require("./routes/add_product_routes");
 const all_products_routes = require("./routes/all_products_routes");
 const my_profile_routes = require("./routes/my_profile_routes");
+const edit_profile_routes = require("./routes/edit_profile_routes");
 
 const port = process.env.PORT || 7777;
 
@@ -33,18 +34,21 @@ app.set("view engine", "ejs");
 
 app.use("/", index_routes);
 app.use("/auth", auth_routes);
+app.use("/my_profile", my_profile_routes);
 app.use("/add_product", add_product_routes);
 app.use("/all_products", all_products_routes);
-app.use("/my_profile", my_profile_routes);
+app.use("/edit_profile", edit_profile_routes);
 
 const start = async () => {
-  await mongoose.connect(`${process.env.DB_URL}`);
+  try {
+    await mongoose.connect(`${process.env.DB_URL}`);
 
-  app.listen(port);
-
-  console.log(
-    `Сервер запущено на порту ${port}, клік на http://localhost:${port}`
-  );
+    app.listen(port, () => {
+      console.log(`Сервер запущено на порту - http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error(`Помилка при запуску сервера: ${error.message}`);
+  }
 };
 
 start();
