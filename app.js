@@ -10,7 +10,7 @@ const add_product_routes = require("./routes/add_product_routes");
 const all_products_routes = require("./routes/all_products_routes");
 const my_profile_routes = require("./routes/my_profile_routes");
 const edit_profile_routes = require("./routes/edit_profile_routes");
-
+const my_products_routes = require("./routes/my_products_routes");
 const port = process.env.PORT || 7777;
 
 app.use(express.json());
@@ -38,7 +38,7 @@ app.use("/my_profile", my_profile_routes);
 app.use("/add_product", add_product_routes);
 app.use("/all_products", all_products_routes);
 app.use("/edit_profile", edit_profile_routes);
-
+app.use("/my_products", my_products_routes);
 const start = async () => {
   try {
     await mongoose.connect(`${process.env.DB_URL}`);

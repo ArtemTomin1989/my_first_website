@@ -11,10 +11,6 @@ router.get("/", async (req, res) => {
 
     const user = await db_user.findById(req.session.userId);
 
-    if (!user) {
-      return res.redirect("/auth/login");
-    }
-
     return res.render("edit_profile.ejs", { user });
   } catch (error) {
     console.error(`Error fetching user data: ${error.message}`);

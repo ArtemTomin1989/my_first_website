@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
       name,
       price,
       description,
-      user: req.session.userId,
+      owner_id: req.session.userId,
     });
 
     await new_product.save();

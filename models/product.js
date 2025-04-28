@@ -13,7 +13,7 @@ const productSchema = new Schema({
     type: String,
   },
 
-  user: {
+  owner_id: {
     type: Schema.Types.ObjectId,
     ref: "user", // назва моделі користувача
   },
