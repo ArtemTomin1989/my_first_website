@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Edit Profile</title>
+    <link rel="stylesheet" href="/css/edit_profile.css" />
   </head>
   <body>
     <%- include("partials/header") %>
@@ -48,6 +49,61 @@
       <button type="submit">Save Changes</button>
     </form>
 
+    <button id="showDeleteFormBtn">Delete Account</button>
+
+    <div id="modalOverlay" style="display: none">
+      <div id="deleteModal">
+        <form
+          id="deleteForm"
+          action="/edit_profile/delete_profile"
+          method="POST"
+        >
+          <label for="password">Enter your password to confirm:</label>
+          <input type="password" id="password" name="password" required />
+
+          <div style="margin-top: 10px">
+            <button type="submit">Confirm Delete</button>
+            <button type="button" id="cancelDeleteBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <a href="/my_profile">Back to Profile</a>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const showDeleteFormBtn = document.getElementById("showDeleteFormBtn");
+        const modalOverlay = document.getElementById("modalOverlay");
+        const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+        const deleteModal = document.getElementById("deleteModal");
+
+        showDeleteFormBtn.addEventListener("click", () => {
+          modalOverlay.style.display = "flex";
+          document.body.classList.add("modal-open");
+        });
+
+        cancelDeleteBtn.addEventListener("click", () => {
+          closeModal();
+        });
+
+        modalOverlay.addEventListener("click", (event) => {
+          if (event.target === modalOverlay) {
+            closeModal();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && modalOverlay.style.display === "flex") {
+            closeModal();
+          }
+        });
+
+        function closeModal() {
+          modalOverlay.style.display = "none";
+          document.body.classList.remove("modal-open");
+        }
+      });
+    </script>
   </body>
 </html>

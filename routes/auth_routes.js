@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
 
       req.session.userId = new_user._id;
 
-      console.log(`Нового користувача ${new_user.email} додано`);
+      console.log(`New user ${new_user.email} is added`);
     }
     return res.redirect("/add_product");
   } catch (error) {
@@ -53,14 +53,14 @@ router.post("/login", async (req, res) => {
     const user = await db_user.findOne({ email });
 
     if (!user) {
-      console.log("Користувач не знайдений");
+      console.log("User not found");
       return res.redirect("/auth/login");
     }
 
     const is_same = await bcrypt.compare(password, user.password);
 
     if (!is_same) {
-      console.log("Неправильний пароль");
+      console.log("Incorrect password");
       return res.redirect("/auth/login");
     }
 

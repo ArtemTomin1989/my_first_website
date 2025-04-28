@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
 
     await new_product.save();
 
-    console.log(`Товар ${new_product.name} додано`);
+    console.log(`Product ${new_product.name} is added`);
     return res.redirect("/all_products");
   } catch (error) {
     console.error(`Error adding product: ${error.message}`);

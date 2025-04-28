@@ -44,10 +44,10 @@ const start = async () => {
     await mongoose.connect(`${process.env.DB_URL}`);
 
     app.listen(port, () => {
-      console.log(`Сервер запущено на порту - http://localhost:${port}`);
+      console.log(`Server is running on port - http://localhost:${port}`);
     });
   } catch (error) {
-    console.error(`Помилка при запуску сервера: ${error.message}`);
+    console.error(`Error starting the server: ${error.message}`);
   }
 };
 
