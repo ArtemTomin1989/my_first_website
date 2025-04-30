@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
 
     const my_products = await db_product.find({ owner_id: req.session.userId });
 
-    res.render("my_products.ejs", { my_products });
+    res.render("products/my_products.ejs", { my_products });
   } catch (error) {
     console.error(`Error fetching products: ${error.message}`);
 

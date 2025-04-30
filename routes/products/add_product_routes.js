@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
   if (!req.session.userId) {
     return res.redirect("/auth/login");
   }
-  res.render("add_product.ejs");
+  res.render("products/add_product.ejs");
 });
 
 router.post("/", async (req, res) => {

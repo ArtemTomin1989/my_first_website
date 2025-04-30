@@ -14,10 +14,10 @@ router.get("/", async (req, res) => {
       return res.redirect("/auth/login");
     }
 
-    res.render("my_profile.ejs", { user });
+    res.render("profile/my_profile.ejs", { user });
   } catch (error) {
     console.error(`Error fetching user data: ${error.message}`);
-    
+
     return res.redirect("/");
   }
 });

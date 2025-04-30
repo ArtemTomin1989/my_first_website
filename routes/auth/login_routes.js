@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const router = new Router();
 
 router.get("/", (req, res) => {
-  res.render("login.ejs");
+  res.render("auth/login.ejs");
 });
 
 router.post("/", async (req, res) => {

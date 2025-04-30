@@ -3,16 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product List</title>
+    <title>My Products</title>
   </head>
   <body>
-    <%- include("partials/header") %>
+    <%- include("../partials/header") %>
 
-    <h1>Product List</h1>
+    <h1>My Products List</h1>
     <ul>
-      <% products.forEach(product => { %>
+      <% my_products.forEach(product => { %>
       <li><%= product.name %> - $<%= product.price %></li>
       - <%= product.description %> <% }); %>
     </ul>
+    <a href="/add_product">Add another product</a>
   </body>
 </html>

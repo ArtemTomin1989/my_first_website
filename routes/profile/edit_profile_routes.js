@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
 
     const user = await db_user.findById(req.session.userId);
 
-    return res.render("edit_profile.ejs", { user });
+    return res.render("profile/edit_profile.ejs", { user });
   } catch (error) {
     console.error(`Error fetching user data: ${error.message}`);
 
@@ -70,7 +70,7 @@ router.post("/delete_profile", async (req, res) => {
     }
 
     await db_user.findByIdAndDelete(userId);
-    console.log ("User was successfully deleted")
+    console.log("User was successfully deleted");
     req.session.destroy((error) => {
       if (error) {
         console.error("Session destroy error:", error);
