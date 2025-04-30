@@ -4,11 +4,11 @@ const bcrypt = require("bcryptjs");
 
 const router = new Router();
 
-router.get("/register", (req, res) => {
+router.get("/", (req, res) => {
   res.render("register.ejs");
 });
 
-router.post("/register", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await db_user.findOne({ email });
@@ -41,43 +41,6 @@ router.post("/register", async (req, res) => {
 
     return res.redirect("/");
   }
-});
-
-router.get("/login", (req, res) => {
-  res.render("login.ejs");
-});
-
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await db_user.findOne({ email });
-
-    if (!user) {
-      console.log("User not found");
-      return res.redirect("/auth/login");
-    }
-
-    const is_same = await bcrypt.compare(password, user.password);
-
-    if (!is_same) {
-      console.log("Incorrect password");
-      return res.redirect("/auth/login");
-    }
-
-    req.session.userId = user._id;
-
-    return res.redirect("/add_product");
-  } catch (error) {
-    console.error(`Error during user login: ${error.message}`);
-
-    return res.redirect("/");
-  }
-});
-
-router.get("/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect("/");
-  });
 });
 
 module.exports = router;
