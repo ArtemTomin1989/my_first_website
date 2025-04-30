@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const router = new Router();
-const db_user = require("../models/user");
+const db_user = require("../../models/user");
 
 router.get("/", async (req, res) => {
   try {

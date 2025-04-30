@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const db_user = require("../models/user");
+const db_user = require("../../models/user");
 const bcrypt = require("bcryptjs");
 
 const router = new Router();

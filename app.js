@@ -4,13 +4,13 @@ const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
 
-const auth_routes = require("./routes/auth_routes");
+const auth_routes = require("./routes/auth/auth_routes");
 const index_routes = require("./routes/index_routes");
-const add_product_routes = require("./routes/add_product_routes");
-const all_products_routes = require("./routes/all_products_routes");
-const my_profile_routes = require("./routes/my_profile_routes");
-const edit_profile_routes = require("./routes/edit_profile_routes");
-const my_products_routes = require("./routes/my_products_routes");
+const add_product_routes = require("./routes/products/add_product_routes");
+const all_products_routes = require("./routes/products/all_products_routes");
+const my_profile_routes = require("./routes/profile/my_profile_routes");
+const edit_profile_routes = require("./routes/profile/edit_profile_routes");
+const my_products_routes = require("./routes/products/my_products_routes");
 const port = process.env.PORT || 7777;
 
 app.use(express.json());

@@ -71,39 +71,6 @@
 
     <a href="/my_profile">Back to Profile</a>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const showDeleteFormBtn = document.getElementById("showDeleteFormBtn");
-        const modalOverlay = document.getElementById("modalOverlay");
-        const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-        const deleteModal = document.getElementById("deleteModal");
-
-        showDeleteFormBtn.addEventListener("click", () => {
-          modalOverlay.style.display = "flex";
-          document.body.classList.add("modal-open");
-        });
-
-        cancelDeleteBtn.addEventListener("click", () => {
-          closeModal();
-        });
-
-        modalOverlay.addEventListener("click", (event) => {
-          if (event.target === modalOverlay) {
-            closeModal();
-          }
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape" && modalOverlay.style.display === "flex") {
-            closeModal();
-          }
-        });
-
-        function closeModal() {
-          modalOverlay.style.display = "none";
-          document.body.classList.remove("modal-open");
-        }
-      });
-    </script>
+    <script src="./scripts/edit_profile.js"></script>
   </body>
 </html>
