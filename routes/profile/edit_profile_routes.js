@@ -6,7 +6,7 @@ const db_user = require("../../models/user");
 router.get("/", async (req, res) => {
   try {
     if (!req.session.userId) {
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     const user = await db_user.findById(req.session.userId);
@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     if (!req.session.userId) {
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     const { nickname, age, bio, phoneNumber, location } = req.body;
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
 router.post("/delete_profile", async (req, res) => {
   try {
     if (!req.session.userId) {
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     const userId = req.session.userId;
@@ -53,7 +53,7 @@ router.post("/delete_profile", async (req, res) => {
 
     const user = await db_user.findById(userId);
     if (!user) {
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     const is_same = await bcrypt.compare(password, user.password);

@@ -5,7 +5,7 @@ const router = new Router();
 
 router.get("/", (req, res) => {
   if (!req.session.userId) {
-    return res.redirect("/auth/login");
+    return res.redirect("/login");
   }
   res.render("products/add_product.ejs");
 });

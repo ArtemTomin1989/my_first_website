@@ -6,7 +6,7 @@ const router = new Router();
 router.get("/", async (req, res) => {
   try {
     if (!req.session.userId) {
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     const my_products = await db_product.find({ owner_id: req.session.userId });

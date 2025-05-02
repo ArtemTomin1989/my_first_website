@@ -13,6 +13,8 @@ const add_product_routes = require("./routes/products/add_product_routes");
 const my_products_routes = require("./routes/products/my_products_routes");
 const edit_profile_routes = require("./routes/profile/edit_profile_routes");
 const all_products_routes = require("./routes/products/all_products_routes");
+const edit_my_products_routes = require("./routes/products/edit_my_products_routes");
+const delete_my_products_routes = require("./routes/products/delete_my_products_routes");
 const port = process.env.PORT || 7777;
 
 app.use(express.json());
@@ -37,14 +39,17 @@ app.engine("ejs", require("ejs").renderFile);
 app.set("view engine", "ejs");
 
 app.use("/", index_routes);
-app.use("/auth/login", login_routes);
-app.use("/auth/logout", logout_routes);
+app.use("/login", login_routes);
+app.use("/logout", logout_routes);
 app.use("/my_profile", my_profile_routes);
-app.use("/auth/register", register_routes);
+app.use("/register", register_routes);
 app.use("/add_product", add_product_routes);
 app.use("/my_products", my_products_routes);
 app.use("/all_products", all_products_routes);
 app.use("/edit_profile", edit_profile_routes);
+app.use("/edit_my_products", edit_my_products_routes);
+app.use("/delete_my_products", delete_my_products_routes);
+
 const start = async () => {
   try {
     await mongoose.connect(`${process.env.DB_URL}`);

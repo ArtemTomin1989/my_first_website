@@ -15,14 +15,14 @@ router.post("/", async (req, res) => {
 
     if (!user) {
       console.log("User not found");
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     const is_same = await bcrypt.compare(password, user.password);
 
     if (!is_same) {
       console.log("Incorrect password");
-      return res.redirect("/auth/login");
+      return res.redirect("/login");
     }
 
     req.session.userId = user._id;
