@@ -9,10 +9,17 @@
     <%- include("../partials/header") %>
 
     <h1>Product List</h1>
+
     <ul>
       <% products.forEach(product => { %>
-      <li><%= product.name %> - $<%= product.price %></li>
-      - <%= product.description %> <% }); %>
+      <li>
+        <%= product.name %> - $<%= product.price %>
+
+        <div><%= product.description %>...</div>
+
+        <a href="/product_details/<%= product._id %>">Read More</a>
+      </li>
+      <% }); %>
     </ul>
   </body>
 </html>
