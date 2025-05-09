@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
       return res.redirect("/login");
     }
 
-    const user = await db_user.findById(req.session.userId).lean();
+    const user = await db_user.findById(req.session.userId);
 
     if (!user) {
       return res.redirect("/login");

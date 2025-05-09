@@ -16,6 +16,9 @@
         <%= product.name %> - $<%= product.price %>
 
         <div><%= product.description %>...</div>
+        <form action="/add_to_cart/<%= product._id %>" method="POST">
+          <button type="submit">Add to Cart</button>
+        </form>
 
         <a href="/product_details/<%= product._id %>">Read More</a>
       </li>

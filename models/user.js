@@ -17,6 +17,12 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  cart: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "product", // назва моделі продукту
+    },
+  ],
 });
 
 module.exports = model("user", userSchema);

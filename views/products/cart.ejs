@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Cart</title>
+  </head>
+  <body>
+    <%- include("../partials/header") %>
+
+    <h1>Your Shopping Cart</h1>
+
+    <% if (products.length === 0) { %>
+    <p>Your cart is empty.</p>
+    <% } else { %> <% let total = 0; %> <% products.forEach(product => { %> <%
+    total += product.price; %>
+    <div>
+      <h2><%= product.name %></h2>
+      <p>Price: <%= product.price %> UAH</p>
+      <p><%= product.description %></p>
+
+      <form action="/remove_from_cart/<%= product._id %>" method="POST">
+        <button type="submit">Remove From Cart</button>
+      </form>
+      <hr />
+    </div>
+    <% }) %>
+
+    <h3>Total: <%= total %> UAH</h3>
+    <% } %>
+  </body>
+</html>
