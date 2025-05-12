@@ -13,16 +13,15 @@ router.post("/:productId", async (req, res) => {
       return res.redirect("/login");
     }
 
-    const user = await db_user.findById(userId);
+    await db_user.updateOne(
+      { _id: userId },
+      { $pull: { cart: productId } } // фактичне видалення з масиву
+    );
 
-    user.cart = user.cart.filter((itemId) => itemId.toString() !== productId);
-
-    await user.save();
-    console.log("product was removed");
+    console.log("Product was removed from cart");
     res.redirect("/cart");
   } catch (error) {
     console.error("Error removing product from cart:", error);
-
     res.redirect("/cart");
   }
 });

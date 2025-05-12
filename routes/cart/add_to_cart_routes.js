@@ -34,7 +34,7 @@ router.post("/:productId", async (req, res) => {
 
     await user.save();
 
-    console.log("product was added");
+    console.log("Product was added");
 
     res.redirect("/cart");
   } catch (error) {
