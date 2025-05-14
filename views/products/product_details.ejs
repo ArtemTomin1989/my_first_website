@@ -14,9 +14,16 @@
 
     <p>Description: <%= product.description %></p>
 
+    <% if (userId) { %> <% if (product.owner_id.toString() !==
+    userId.toString()) { %>
     <form action="/add_to_cart/<%= product._id %>" method="POST">
       <button type="submit">Add to Cart</button>
     </form>
+    <% } else { %>
+    <div>This is your product</div>
+    <% } %> <% } else { %>
+    <div><a href="/login">Log in</a> to add to cart</div>
+    <% } %>
 
     <a href="/all_products">Back to list</a>
   </body>

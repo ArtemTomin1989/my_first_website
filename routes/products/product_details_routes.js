@@ -12,7 +12,12 @@ router.get("/:id", async (req, res) => {
       return res.redirect("/all_products");
     }
 
-    res.render("products/product_details.ejs", { product });
+    const userId = req.session.userId;
+
+    res.render("products/product_details.ejs", {
+      product,
+      userId: userId || "",
+    });
   } catch (error) {
     console.error("Error loading product", error.message);
     res.redirect("/all_products");

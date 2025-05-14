@@ -5,11 +5,16 @@ const router = new Router();
 
 router.get("/", async (req, res) => {
   try {
+
     const products = await db_product.find();
-    res.render("products/all_products.ejs", { products });
+    const userId = req.session.userId;
+
+    res.render("products/all_products.ejs", {
+      products,
+      userId: userId || "",
+    });
   } catch (error) {
     console.error(`Error fetching products: ${error.message}`);
-
     return res.redirect("/");
   }
 });
