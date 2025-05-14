@@ -1,12 +1,10 @@
 const { Router } = require("express");
 const db_product = require("../../models/product");
+const isAuthenticated = require("../../middlewares/is_auth");
 
 const router = new Router();
 
-router.get("/", (req, res) => {
-  if (!req.session.userId) {
-    return res.redirect("/login");
-  }
+router.get("/", isAuthenticated, (req, res) => {
   res.render("products/add_product.ejs");
 });
 

@@ -2,13 +2,11 @@ const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const router = new Router();
 const db_user = require("../../models/user");
+const isAuthenticated = require("../../middlewares/is_auth");
 
-router.get("/", async (req, res) => {
+router.get("/",isAuthenticated, async (req, res) => {
   try {
-    if (!req.session.userId) {
-      return res.redirect("/login");
-    }
-
+   
     const user = await db_user.findById(req.session.userId);
 
     return res.render("profile/edit_profile.ejs", { user });
@@ -19,11 +17,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/",isAuthenticated, async (req, res) => {
   try {
-    if (!req.session.userId) {
-      return res.redirect("/login");
-    }
+   
 
     const { nickname, age, bio, phoneNumber, location } = req.body;
 
@@ -42,11 +38,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/delete_profile", async (req, res) => {
+router.post("/delete_profile",isAuthenticated, async (req, res) => {
   try {
-    if (!req.session.userId) {
-      return res.redirect("/login");
-    }
 
     const userId = req.session.userId;
     const { password } = req.body;

@@ -1,13 +1,10 @@
 const { Router } = require("express");
 const router = new Router();
 const db_user = require("../../models/user");
+const isAuthenticated = require("../../middlewares/is_auth");
 
-router.get("/", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
-    if (!req.session.userId) {
-      return res.redirect("/login");
-    }
-
     const user = await db_user.findById(req.session.userId);
 
     if (!user) {

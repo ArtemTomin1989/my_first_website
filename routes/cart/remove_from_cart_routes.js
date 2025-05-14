@@ -1,10 +1,11 @@
 const { Router } = require("express");
 const db_product = require("../../models/product");
 const db_user = require("../../models/user");
+const isAuthenticated = require("../../middlewares/is_auth");
 
 const router = new Router();
 
-router.post("/:productId", async (req, res) => {
+router.post("/:productId", isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.userId;
     const productId = req.params.productId;

@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const isAuthenticated = require("../../middlewares/is_auth");
 
 const db_product = require("../../models/product");
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",isAuthenticated, async (req, res) => {
   try {
     const product = await db_product.findById(req.params.id);
     return res.render("products/edit_my_products.ejs", { product });
@@ -13,7 +14,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/:id", async (req, res) => {
+router.post("/:id",isAuthenticated, async (req, res) => {
   const { name, price, description } = req.body;
   try {
     await db_product.findByIdAndUpdate(req.params.id, {
