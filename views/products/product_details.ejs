@@ -10,6 +10,16 @@
 
     <h1><%= product.name %></h1>
 
+    <% if (product.image) { %>
+    <div>
+      <img
+        src="<%= product.image %>"
+        alt="Product image"
+        style="max-width: 400px"
+      />
+    </div>
+    <% } %>
+
     <p>Price: $<%= product.price %></p>
 
     <p>Description: <%= product.description %></p>

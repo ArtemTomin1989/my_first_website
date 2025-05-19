@@ -10,12 +10,13 @@ router.get("/", isAuthenticated, (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { name, price, description } = req.body;
+    const { name, price, description, image } = req.body;
 
     const new_product = new db_product({
       name,
       price,
       description,
+      image,
       owner_id: req.session.userId,
     });
 

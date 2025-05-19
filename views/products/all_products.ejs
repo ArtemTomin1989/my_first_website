@@ -13,8 +13,20 @@
     <ul>
       <% products.forEach(product => { %>
       <li>
-        <%= product.name %> - $<%= product.price %>
-        <div><%= product.description %>...</div>
+        <%= product.name %> - $<%= product.price %> <% if (product.image) { %>
+        <img
+          src="<%= product.image %>"
+          alt="Product image"
+          style="max-width: 200px; margin: 10px 0"
+        /><br />
+        <% } %>
+
+        <div>
+          <% let shortDesc = product.description.length > 100 ?
+          product.description.slice(0, 50) + '...' : product.description; %>
+          <em><%= shortDesc %></em><br />
+          <a href="/product_details/<%= product._id %>">Read More</a>
+        </div>
 
         <% if (userId) { %> <% if (product.owner_id.toString() !==
         userId.toString()) { %>
@@ -26,10 +38,9 @@
         <% } %> <% } else { %>
         <div><a href="/login">Log in</a> to add to cart</div>
         <% } %>
-
-        <a href="/product_details/<%= product._id %>">Read More</a>
       </li>
       <% }); %>
     </ul>
   </body>
 </html>
+

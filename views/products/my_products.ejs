@@ -13,8 +13,19 @@
     <ul>
       <% my_products.forEach(product => { %>
       <li>
-        <%= product.name %> - $<%= product.price %><br />
-        <em><%= product.description %></em><br />
+        <div><%= product.name %> - $<%= product.price %><br /></div>
+
+        <div>
+          <% if (product.image) { %>
+          <img
+            src="<%= product.image %>"
+            alt="Product image"
+            style="max-width: 200px; margin: 10px 0"
+          /><br />
+          <% } %>
+        </div>
+
+        <div><em><%= product.description %></em><br /></div>
 
         <a href="/edit_my_products/<%= product._id %>">Edit</a>
         <button class="delete-btn" data-id="<%= product._id %>">Delete</button>

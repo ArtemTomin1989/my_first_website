@@ -6,7 +6,6 @@
     <title>Add Product</title>
   </head>
   <body>
-    
     <%- include("../partials/header") %>
 
     <form action="/add_product" method="POST">
@@ -18,7 +17,8 @@
         placeholder="Product Description"
         required
       ></textarea>
-      <button type="submit">Add</button>
+      <input type="text" name="image" placeholder="Image URL (https://...)" />
+      <button type="submit">Add Product</button>
     </form>
 
     <a href="/all_products">View Products</a>

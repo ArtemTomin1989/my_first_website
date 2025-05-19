@@ -13,6 +13,10 @@ const productSchema = new Schema({
     type: String,
   },
 
+  image: {
+    type: String, // URL до зображення
+  },
+
   owner_id: {
     type: Schema.Types.ObjectId,
     ref: "user", // назва моделі користувача

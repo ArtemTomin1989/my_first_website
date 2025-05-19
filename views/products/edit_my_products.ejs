@@ -40,6 +40,28 @@
         >
       </div>
 
+      <div>
+        <label for="image">Image URL:</label>
+        <input
+          type="text"
+          id="image"
+          name="image"
+          value="<%= product.image %>"
+          placeholder="https://example.com/image.jpg"
+        />
+      </div>
+
+      <% if (product.image) { %>
+      <div>
+        <p>Current image:</p>
+        <img
+          src="<%= product.image %>"
+          alt="Product image"
+          style="max-width: 200px"
+        />
+      </div>
+      <% } %>
+
       <button type="submit">Save Changes</button>
       <a href="/my_products">Cancel</a>
     </form>
