@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
+const upload_file = require("./middlewares/upload_file");
 
 const index_routes = require("./routes/index_routes");
 const cart_routes = require("./routes/cart/cart_routes");
@@ -25,6 +26,8 @@ const port = process.env.PORT || 7777;
 app.use(express.json());
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
+// app.use("/images", express.static(__dirname + "/images"));
+app.use(upload_file.single("avatar"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -55,7 +58,7 @@ app.use("/add_to_cart", add_to_cart_routes);
 app.use("/all_products", all_products_routes);
 app.use("/edit_profile", edit_profile_routes);
 app.use("/product_details", product_details_routes);
-app.use("/remove_from_cart", remove_from_cart_routes)
+app.use("/remove_from_cart", remove_from_cart_routes);
 app.use("/edit_my_products", edit_my_products_routes);
 app.use("/delete_my_products", delete_my_products_routes);
 

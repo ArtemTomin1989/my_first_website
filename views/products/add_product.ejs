@@ -8,7 +8,7 @@
   <body>
     <%- include("../partials/header") %>
 
-    <form action="/add_product" method="POST">
+    <form action="/add_product" method="POST" enctype="multipart/form-data">
       <h1>Add Product</h1>
       <input type="text" name="name" placeholder="Product Name" required />
       <input type="number" name="price" placeholder="Price" required />
@@ -17,7 +17,13 @@
         placeholder="Product Description"
         required
       ></textarea>
-      <input type="text" name="image" placeholder="Image URL (https://...)" />
+      <div class="input-field">
+        <label for="image">
+          <h5>Please select photo of product (jpg/png/jpeg)</h5>
+        </label>
+        <br />
+        <input type="file" name="avatar" />
+      </div>
       <button type="submit">Add Product</button>
     </form>
 
