@@ -26,7 +26,7 @@ const port = process.env.PORT || 7777;
 app.use(express.json());
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
-// app.use("/images", express.static(__dirname + "/images"));
+app.use("/images", express.static(__dirname + "/images"));
 app.use(upload_file.single("avatar"));
 
 app.use(express.urlencoded({ extended: true }));
