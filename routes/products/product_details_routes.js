@@ -14,7 +14,7 @@ router.get("/:id", async (req, res) => {
 
     const userId = req.session.userId;
 
-    res.render("products/product_details.ejs", {
+    return res.render("products/product_details.ejs", {
       product,
       userId: userId || "",
     });
