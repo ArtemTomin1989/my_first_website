@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db_product = require("../../models/product");
 const isAuthenticated = require("../../middlewares/is_auth");
-const empty_image = "/images/empty.jpg";
+const empty_image = "images/empty.jpg";
 
 const router = new Router();
 
@@ -9,7 +9,7 @@ router.get("/", isAuthenticated, (req, res) => {
   res.render("products/add_product.ejs");
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   try {
     const { name, price, description } = req.body;
     let image = req.body.image;

@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Product</title>
+    <link rel="stylesheet" href="/css/edit_my_products.css" />
   </head>
   <body>
     <%- include("../partials/header") %>
 
     <h1>Edit Product</h1>
 
-    <form action="/edit_my_products/<%= product._id %>" method="POST">
+    <form
+      action="/edit_my_products/<%= product._id %>"
+      method="POST"
+      enctype="multipart/form-data"
+    >
       <div>
         <label for="name">Name:</label>
         <input
@@ -41,29 +46,60 @@
       </div>
 
       <div>
-        <label for="image">Image URL:</label>
-        <input
-          type="text"
-          id="image"
-          name="image"
-          value="<%= product.image %>"
-          placeholder="https://example.com/image.jpg"
-        />
+        <label for="image">Upload new image:</label>
+        <input type="file" name="avatar" />
       </div>
 
       <% if (product.image) { %>
       <div>
         <p>Current image:</p>
         <img
-          src="<%= product.image %>"
+          src="/<%= product.image %>"
           alt="Product image"
           style="max-width: 200px"
         />
+        <input type="hidden" name="old_image" value="<%= product.image %>" />
       </div>
       <% } %>
 
       <button type="submit">Save Changes</button>
       <a href="/my_products">Cancel</a>
     </form>
+
+    <% if (product.image && product.image !== "images/empty.jpg") { %>
+    <div style="margin-top: 10px">
+      <button type="button" id="confirmDeleteImageBtn">Delete Image</button>
+    </div>
+    <% } %>
+
+    <button class="delete-btn" data-id="<%= product._id %>">Delete</button>
+
+    <!-- Confirm product delete modal -->
+    <div id="confirmModal" class="modal hidden">
+      <div class="modal-content">
+        <p>Are you sure you want to delete this product?</p>
+        <form id="deleteForm" method="POST">
+          <button type="submit">Yes, delete</button>
+          <button type="button" id="cancelBtn">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirm image delete modal -->
+    <div id="deleteImageModal" class="modal hidden">
+      <div class="modal-content">
+        <p>Are you sure you want to delete the product image?</p>
+        <form
+          id="deleteImageForm"
+          method="POST"
+          action="/edit_my_products/<%= product._id %>/delete_image"
+        >
+          <button type="submit">Yes, delete image</button>
+          <button type="button" id="cancelDeleteImageBtn">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/scripts/edit_my_products.js"></script>
   </body>
 </html>

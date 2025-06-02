@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
 
     req.session.userId = user._id;
 
-    return res.redirect("/add_product");
+    return res.redirect("/all_products");
   } catch (error) {
     console.error(`Error during user login: ${error.message}`);
 
