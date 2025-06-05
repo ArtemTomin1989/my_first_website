@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="/css/edit_profile.css" />
+    <link rel="stylesheet" href="/css/profile/edit_profile.css" />
   </head>
   <body>
     <%- include("../partials/header") %>
+
+    <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
 
     <h1>Edit Profile</h1>
 
@@ -71,6 +76,6 @@
 
     <a href="/my_profile">Back to Profile</a>
 
-    <script src="/scripts/edit_profile.js"></script>
+    <script src="/scripts/profile/edit_profile.js"></script>
   </body>
 </html>

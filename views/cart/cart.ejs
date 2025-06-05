@@ -6,6 +6,11 @@
   <body>
     <%- include("../partials/header") %>
 
+    <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
+
     <h1>Your Shopping Cart</h1>
 
     <% if (products.length === 0) { %>

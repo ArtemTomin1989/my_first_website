@@ -8,6 +8,11 @@
   <body>
     <%- include("../partials/header") %>
 
+     <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
+
     <form action="/register" method="POST">
       <h1>Registration</h1>
 

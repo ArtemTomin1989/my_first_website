@@ -5,7 +5,10 @@ const bcrypt = require("bcryptjs");
 const router = new Router();
 
 router.get("/", (req, res) => {
-  res.render("auth/register.ejs");
+  res.render("auth/register.ejs", {
+    alert_type: "",
+    message: "",
+  });
 });
 
 router.post("/", async (req, res) => {
@@ -13,7 +16,10 @@ router.post("/", async (req, res) => {
     const { email, password } = req.body;
     const user = await db_user.findOne({ email });
     if (user) {
-      console.log("This user already exists");
+      return res.render("auth/register.ejs", {
+        alert_type: "error",
+        message: "This user already exists",
+      });
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const new_user = new db_user({
@@ -31,15 +37,17 @@ router.post("/", async (req, res) => {
       });
       await new_user.save();
 
-      req.session.userId = new_user._id;
-
-      console.log(`New user ${new_user.email} is added`);
+      return res.render("auth/login.ejs", {
+        alert_type: "success",
+        message: `New user ${new_user.email} is added`,
+      });
     }
-    return res.redirect("/add_product");
   } catch (error) {
-    console.error(`Error during user registration: ${error.message}`);
-
-    return res.redirect("/");
+    console.log(`Error during user registration: ${error.message}`);
+    return res.render("auth/register.ejs", {
+      alert_type: "error",
+      message: `Error during user registration: ${error.message}`,
+    });
   }
 });
 

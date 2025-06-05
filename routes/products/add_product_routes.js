@@ -5,9 +5,12 @@ const empty_image = "images/empty.jpg";
 
 const router = new Router();
 
-router.get("/", isAuthenticated, (req, res) => {
-  res.render("products/add_product.ejs");
-});
+router.get("/", isAuthenticated, (req, res) =>
+  res.render("products/add_product.ejs", {
+    alert_type: "",
+    message: "",
+  })
+);
 
 router.post("/", isAuthenticated, async (req, res) => {
   try {
@@ -30,12 +33,19 @@ router.post("/", isAuthenticated, async (req, res) => {
 
     await new_product.save();
 
-    console.log(`Product ${new_product.name} is added`);
-    return res.redirect("/all_products");
-  } catch (error) {
-    console.error(`Error adding product: ${error.message}`);
+    const products = await db_product.find();
 
-    return res.redirect("/");
+    return res.render("products/all_products.ejs", {
+      alert_type: "success",
+      message: `Product ${new_product.name} is added`,
+      products:products,
+    });
+  } catch (error) {
+    console.log(`Error adding product: ${error.message}`);
+    return res.render("index.ejs", {
+      alert_type: "error",
+      message: `Error adding product: ${error.message}`,
+    });
   }
 });
 

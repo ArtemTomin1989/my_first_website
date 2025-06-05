@@ -5,7 +5,7 @@ const isAuthenticated = require("../../middlewares/is_auth");
 
 const router = new Router();
 
-router.post("/:productId",isAuthenticated, async (req, res) => {
+router.post("/:productId", isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.userId;
     const productId = req.params.productId;
@@ -16,32 +16,44 @@ router.post("/:productId",isAuthenticated, async (req, res) => {
 
     const product = await db_product.findById(productId);
     if (!product) {
-      console.error("Product not found");
-      return res.redirect("/all_products");
+      return res.render("products/all_products.ejs", {
+        alert_type: "error",
+        message: "Product not found",
+      });
     }
 
     if (product.owner_id.toString() === userId) {
-      console.error("Cannot add your own product to cart");
-      return res.redirect("/cart");
+      return res.render("cart/cart.ejs", {
+        alert_type: "error",
+        message: "Cannot add your own product to cart",
+      });
     }
 
     const user = await db_user.findById(userId);
-    if (user.cart.includes(productId)) {
-      console.error("Product already in cart");
-      return res.redirect("/cart");
-    }
+    if (user.cart.includes(productId))
+      return res.render("cart/cart.ejs", {
+        alert_type: "error",
+        message: "Product already in cart",
+        products: user.cart,
+      });
 
     user.cart.push(productId);
 
     await user.save();
 
-    console.log("Product was added");
+    await user.populate("cart");
 
-    res.redirect("/cart");
+    return res.render("cart/cart.ejs", {
+      alert_type: "success",
+      message: "Product was added",
+      products: user.cart,
+    });
   } catch (error) {
-    console.error("Error adding product to cart:", error);
-
-    res.redirect("/all_products");
+    console.log(`Error adding product to cart: ${error.message}`);
+    return res.render("products/all_products.ejs", {
+      alert_type: "error",
+      message: `Error adding product to cart: ${error.message}`,
+    });
   }
 });
 

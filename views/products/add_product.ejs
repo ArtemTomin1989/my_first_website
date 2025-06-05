@@ -8,6 +8,11 @@
   <body>
     <%- include("../partials/header") %>
 
+    <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
+
     <form action="/add_product" method="POST" enctype="multipart/form-data">
       <h1>Add Product</h1>
       <input type="text" name="name" placeholder="Product Name" required />

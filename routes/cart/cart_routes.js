@@ -9,14 +9,23 @@ router.get("/", isAuthenticated, async (req, res) => {
     const user = await db_user.findById(req.session.userId).populate("cart");
 
     if (!user) {
-      console.error("Користувача не знайдено");
-      return res.redirect("/login");
+      return res.render("auth/login.ejs", {
+        alert_type: "error",
+        message: "User not found",
+      });
     }
 
-    res.render("products/cart.ejs", { products: user.cart });
+    res.render("cart/cart.ejs", {
+      alert_type: "",
+      message: "",
+      products: user.cart,
+    });
   } catch (error) {
-    console.error("Помилка при отриманні кошика:", error);
-    res.redirect("/all_products");
+     console.error("An error occurred while fetching the cart:", error);
+    return res.render("cart/cart.ejs", {
+      alert_type: "error",
+      message: `An error occurred while fetching the cart: ${error.message}`,
+    });
   }
 });
 

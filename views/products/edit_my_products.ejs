@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Product</title>
-    <link rel="stylesheet" href="/css/edit_my_products.css" />
+    <link rel="stylesheet" href="/css/products/edit_my_products.css" />
   </head>
   <body>
     <%- include("../partials/header") %>
+
+    <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
 
     <h1>Edit Product</h1>
 
@@ -72,7 +77,9 @@
     </div>
     <% } %>
 
-    <button class="delete-btn" data-id="<%= product._id %>">Delete</button>
+    <button class="delete-btn" data-id="<%= product._id %>">
+      Delete Product
+    </button>
 
     <!-- Confirm product delete modal -->
     <div id="confirmModal" class="modal hidden">
@@ -100,6 +107,6 @@
       </div>
     </div>
 
-    <script src="/scripts/edit_my_products.js"></script>
+    <script src="/scripts/products/edit_my_products.js"></script>
   </body>
 </html>

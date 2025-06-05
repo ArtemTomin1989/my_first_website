@@ -7,10 +7,18 @@ const fs = require("fs");
 router.get("/:id", isAuthenticated, async (req, res) => {
   try {
     const product = await db_product.findById(req.params.id);
-    return res.render("products/edit_my_products.ejs", { product });
-  } catch (err) {
-    console.error("Edit form error:", err);
-    return res.redirect("/products/edit_my_products", { product });
+    return res.render("products/edit_my_products.ejs", {
+      alert_type: "",
+      message: "",
+      product,
+    });
+  } catch (error) {
+    const my_products = await db_product.find({ owner_id: req.session.userId });
+    return res.render("products/my_products.ejs", {
+      alert_type: "error",
+      message: `Edit form error: ${error.message}`,
+      my_products,
+    });
   }
 });
 
@@ -33,9 +41,12 @@ router.post("/:id", isAuthenticated, async (req, res) => {
     });
 
     return res.redirect("/my_products");
-  } catch (err) {
-    console.error("Update error:", err);
-    return res.redirect("/my_products");
+  } catch (error) {
+    return res.render("products/my_products.ejs", {
+      alert_type: "error",
+      message: `Update error: ${error.message}`,
+      my_products,
+    });
   }
 });
 
@@ -50,19 +61,30 @@ router.post("/:id/delete_image", isAuthenticated, async (req, res) => {
       const filePath = product.image;
       try {
         fs.unlinkSync(filePath);
-        console.log(`Deleted image: ${filePath}`);
-      } catch (err) {
-        console.warn(`Could not delete image file: ${filePath}`, err);
-      }
 
+        res.render("products/edit_my_products.ejs", {
+          alert_type: "success",
+          message: `Deleted image: ${filePath}`,
+          product,
+        });
+      } catch (error) {
+        return res.render("products/edit_my_products.ejs", {
+          alert_type: "error",
+          message: `Could not delete image file: ${filePath}, ${error.message}`,
+          product,
+        });
+      }
       product.image = "images/empty.jpg";
       await product.save();
     }
 
-    return res.redirect(`/edit_my_products/${product._id}`);
-  } catch (err) {
-    console.error("Image delete error:", err);
-    return res.redirect("/my_products");
+  } catch (error) {
+    const product = await db_product.findById(req.params.id);
+    return res.render("products/edit_my_products.ejs", {
+      alert_type: "error",
+      message: `Image delete error: ${error.message}`,
+      product,
+    });
   }
 });
 

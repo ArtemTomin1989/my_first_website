@@ -14,11 +14,21 @@ router.post("/:id", isAuthenticated, async (req, res) => {
     }
 
     await db_product.findByIdAndDelete(my_productId);
-    console.log("product was successfully deleted");
-    return res.redirect("/my_products");
-  } catch (err) {
-    console.error("Delete error:", err);
-    return res.redirect("/my_products");
+
+    const my_products = await db_product.find({ owner_id: req.session.userId });
+
+    res.render("products/my_products.ejs", {
+      alert_type: "success",
+      message: "Product was successfully deleted",
+      my_products,
+    });
+  } catch (error) {
+    console.log("Delete error:", error);
+    res.render("products/my_products.ejs", {
+      alert_type: "error",
+      message: `Delete error: ${error.message}`,
+      my_products,
+    });
   }
 });
 

@@ -8,6 +8,11 @@
   <body>
     <%- include("partials/header") %>
 
+    <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
+
     <h1>Hello! Server is running!</h1>
   </body>
 </html>

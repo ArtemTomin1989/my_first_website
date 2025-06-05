@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Products</title>
-    <link rel="stylesheet" href="/css/my_products.css" />
+    <link rel="stylesheet" href="/css/products/my_products.css" />
   </head>
   <body>
     <%- include("../partials/header") %>
+
+      <!-- error or success message -->
+    <% if (alert_type && message) { %>
+    <p class="<%=alert_type%>"><%= message %></p>
+    <% } %>
 
     <h1>My Products List</h1>
     <ul>
@@ -28,7 +33,7 @@
         <div><em><%= product.description %></em><br /></div>
 
         <a href="/edit_my_products/<%= product._id %>">Edit</a>
-        <button class="delete-btn" data-id="<%= product._id %>">Delete</button>
+        <button class="delete-btn" data-id="<%= product._id %>">Delete Product</button>
       </li>
       <% }); %>
     </ul>
@@ -45,6 +50,6 @@
       </div>
     </div>
 
-    <script src="/scripts/my_products.js"></script>
+    <script src="/scripts/products/my_products.js"></script>
   </body>
 </html>
