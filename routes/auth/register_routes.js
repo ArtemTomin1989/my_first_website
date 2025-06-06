@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const db_user = require("../../models/user");
 const bcrypt = require("bcryptjs");
+const empty_avatar = "uploads/avatars/empty_avatar.jpg";
 
 const router = new Router();
 
@@ -26,8 +27,7 @@ router.post("/", async (req, res) => {
         email,
         password: hashedPassword,
         nickname: "",
-        avatarUrl:
-          "https://wiki.legalaid.gov.ua/images/thumb/e/e2/Person1.jpg/360px-Person1.jpg",
+        avatar: empty_avatar,
         age: 18,
         bio: "",
         phoneNumber: "",

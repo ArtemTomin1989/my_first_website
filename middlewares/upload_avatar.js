@@ -1,8 +1,9 @@
 const multer = require("multer");
+const path = require("path");
 
-const storage = multer.diskStorage({
+const avatarStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/images");
+    cb(null, "uploads/avatars");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -12,7 +13,7 @@ const storage = multer.diskStorage({
 
 const allowedTypes = ["image/jpg", "image/jpeg", "image/png"];
 
-const fileFilter = (req, file, cb) => {
+const avatarFileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
@@ -20,4 +21,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-module.exports = multer({ storage, fileFilter });
+module.exports = multer({
+  storage: avatarStorage,
+  fileFilter: avatarFileFilter,
+});

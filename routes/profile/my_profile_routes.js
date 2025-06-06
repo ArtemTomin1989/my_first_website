@@ -11,11 +11,16 @@ router.get("/", isAuthenticated, async (req, res) => {
       return res.redirect("/login");
     }
 
-    res.render("profile/my_profile.ejs", { user });
+    res.render("profile/my_profile.ejs", {
+      alert_type: "",
+      message: "",
+      user,
+    });
   } catch (error) {
-    console.error(`Error fetching user data: ${error.message}`);
-
-    return res.redirect("/");
+    return res.render("index.ejs", {
+      alert_type: "error",
+      message: `Error fetching user data: ${error.message}`,
+    });
   }
 });
 

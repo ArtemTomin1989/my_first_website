@@ -27,7 +27,7 @@ router.post("/:id", isAuthenticated, async (req, res) => {
   let image = req.body.image;
   try {
     if (req.file) {
-      if (old_image != "images/empty.jpg") {
+      if (old_image != "uploads/images/empty.jpg") {
         let filePath = `${old_image}`;
         fs.unlinkSync(filePath);
       }
@@ -57,27 +57,21 @@ router.post("/:id/delete_image", isAuthenticated, async (req, res) => {
       return res.redirect("/my_products");
     }
 
-    if (product.image && product.image !== "images/empty.jpg") {
+    if (product.image && product.image !== "uploads/images/empty.jpg") {
       const filePath = product.image;
-      try {
-        fs.unlinkSync(filePath);
 
-        res.render("products/edit_my_products.ejs", {
-          alert_type: "success",
-          message: `Deleted image: ${filePath}`,
-          product,
-        });
-      } catch (error) {
-        return res.render("products/edit_my_products.ejs", {
-          alert_type: "error",
-          message: `Could not delete image file: ${filePath}, ${error.message}`,
-          product,
-        });
-      }
-      product.image = "images/empty.jpg";
+      fs.unlinkSync(filePath);
+
+      res.render("products/edit_my_products.ejs", {
+        alert_type: "success",
+        message: `Deleted image: ${filePath}`,
+        product,
+      });
+
+      product.image = "uploads/images/empty.jpg";
       await product.save();
+      //
     }
-
   } catch (error) {
     const product = await db_product.findById(req.params.id);
     return res.render("products/edit_my_products.ejs", {

@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db_product = require("../../models/product");
 const isAuthenticated = require("../../middlewares/is_auth");
-const empty_image = "images/empty.jpg";
+const empty_image = "uploads/images/empty.jpg";
 
 const router = new Router();
 

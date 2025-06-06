@@ -28,6 +28,7 @@ app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
 app.use("/images", express.static(__dirname + "/images"));
 app.use(upload_file.single("avatar"));
+app.use("/uploads", express.static("uploads"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(

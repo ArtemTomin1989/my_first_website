@@ -8,7 +8,7 @@ router.post("/:id", isAuthenticated, async (req, res) => {
   const my_productId = req.params.id;
   try {
     const product = await db_product.findById(my_productId);
-    if (product.image != "images/empty.jpg") {
+    if (product.image != "uploads/images/empty.jpg") {
       let filePath = `${product.image}`;
       fs.unlinkSync(filePath);
     }

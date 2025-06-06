@@ -4,23 +4,25 @@ const router = new Router();
 const db_user = require("../../models/user");
 const isAuthenticated = require("../../middlewares/is_auth");
 
-router.get("/",isAuthenticated, async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
-   
     const user = await db_user.findById(req.session.userId);
 
-    return res.render("profile/edit_profile.ejs", { user });
+    return res.render("profile/edit_profile.ejs", {
+      alert_type: "",
+      message: "",
+      user,
+    });
   } catch (error) {
-    console.error(`Error fetching user data: ${error.message}`);
-
-    return res.redirect("/");
+    return res.render("index.ejs", {
+      alert_type: "error",
+      message: `Error fetching user data: ${error.message}`,
+    });
   }
 });
 
-router.post("/",isAuthenticated, async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   try {
-   
-
     const { nickname, age, bio, phoneNumber, location } = req.body;
 
     await db_user.findByIdAndUpdate(req.session.userId, {
@@ -33,15 +35,16 @@ router.post("/",isAuthenticated, async (req, res) => {
 
     return res.redirect("/my_profile");
   } catch (error) {
-    console.error(`Error updating profile: ${error.message}`);
-    return res.redirect("/edit_profile");
+    return res.render("profile/edit_profile.ejs", {
+      alert_type: "error",
+      message: `Error updating profile: ${error.message}`,
+    });
   }
 });
 
-router.post("/delete_profile",isAuthenticated, async (req, res) => {
+router.post("/delete_profile", isAuthenticated, async (req, res) => {
   try {
-
-    const userId = req.session.userId;
+    let userId = req.session.userId;
     const { password } = req.body;
 
     const user = await db_user.findById(userId);
@@ -52,22 +55,20 @@ router.post("/delete_profile",isAuthenticated, async (req, res) => {
     const is_same = await bcrypt.compare(password, user.password);
 
     if (!is_same) {
-      console.log("User entered incorrect password");
-
-      return req.session.destroy((error) => {
-        if (error) {
-          console.error("Session destroy error:", error);
-        }
-        return res.redirect("/");
+      return res.render("auth/login.ejs", {
+        alert_type: "error",
+        message: "Incorrect password",
       });
     }
 
     await db_user.findByIdAndDelete(userId);
-    console.log("User was successfully deleted");
-    req.session.destroy((error) => {
+
+    return req.session.destroy((error) => {
       if (error) {
         console.error("Session destroy error:", error);
       }
+      console.log("User was successfully deleted");
+
       return res.redirect("/");
     });
   } catch (error) {
