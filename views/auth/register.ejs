@@ -4,23 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/auth/register.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include("../partials/header") %>
 
-     <!-- error or success message -->
+    <!-- error or success message -->
     <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <p class="<%= alert_type %>"><%= message %></p>
     <% } %>
 
-    <form action="/register" method="POST">
-      <h1>Registration</h1>
+    <form action="/register" method="POST" class="retro-form">
+      <h1 class="neon-title shine-text">Registration</h1>
 
       <input
         type="email"
         name="email"
         placeholder="Enter your email"
         required
+        class="retro-input"
       />
 
       <input
@@ -28,11 +35,15 @@
         name="password"
         placeholder="Enter your password"
         required
+        class="retro-input"
       />
 
-      <button type="submit">Sign Up</button>
+      <button type="submit" class="neon-button">Sign Up</button>
     </form>
 
-    <a href="/login">Log in</a>
+    <p>
+      Already have an account?
+      <a href="/login" class="neon-link">Log in</a>
+    </p>
   </body>
 </html>

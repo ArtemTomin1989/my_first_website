@@ -4,22 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log in</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="css/auth/login.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <%- include("../partials/header") %>
-
-    <!-- error or success message -->
-    <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <%- include("../partials/header") %> <% if (alert_type && message) { %>
+    <p class="<%= alert_type %>"><%= message %></p>
     <% } %>
 
-    <form action="/login" method="POST">
-      <h1>Log in</h1>
+    <form action="/login" method="POST" class="retro-form">
+      <h1 class="neon-title">Log in</h1>
+
       <input
         type="email"
         name="email"
         placeholder="Enter your email"
         required
+        class="retro-input"
       />
 
       <input
@@ -27,11 +32,14 @@
         name="password"
         placeholder="Enter your password"
         required
+        class="retro-input"
       />
 
-      <button type="submit">Log in</button>
+      <button type="submit" class="neon-button">Log in</button>
     </form>
 
-    <a href="/register">Sign Up</a>
+    <div style="margin-top: 1rem">
+      <a href="/register" class="neon-link">Sign Up</a>
+    </div>
   </body>
 </html>

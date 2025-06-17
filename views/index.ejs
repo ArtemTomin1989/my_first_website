@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Start Page</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include("partials/header") %>
@@ -12,7 +17,13 @@
     <% if (alert_type && message) { %>
     <p class="<%=alert_type%>"><%= message %></p>
     <% } %>
-
-    <h1>Hello! Server is running!</h1>
+    <div class="centered-hero">
+      <div class="glow-wrapper fade-in">
+        <h1 class="shine-text">Welcome to the RetroShop</h1>
+      </div>
+      <div class="glow-wrapper fade-in fade-in-delay">
+        <h2 class="shine-text-cyan">Your Portal to the Past</h2>
+      </div>
+    </div>
   </body>
 </html>
