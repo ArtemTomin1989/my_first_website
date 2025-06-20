@@ -4,47 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product List</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/products/all_products.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include("../partials/header") %>
 
     <!-- error or success message -->
     <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <div class="alert-wrapper">
+      <p class="<%=alert_type%>"><%= message %></p>
+    </div>
     <% } %>
 
-    <h1>Product List</h1>
+    <div class="products-container">
+      <h1 class="neon-title">Product List</h1>
 
-    <ul>
-      <% products.forEach(product => { %>
-      <li>
-        <%= product.name %> - $<%= product.price %> <% if (product.image) { %>
-        <img
-          src="<%= product.image %>"
-          alt="Product image"
-          style="max-width: 200px; margin: 10px 0"
-        /><br />
-        <% } %>
+      <ul class="product-list">
+        <% products.forEach(product => { %>
+        <li class="product-card">
+          <h2><%= product.name %> - $<%= product.price %></h2>
 
-        <div>
-          <% let shortDesc = product.description.length > 100 ?
-          product.description.slice(0, 50) + '...' : product.description; %>
-          <em><%= shortDesc %></em><br />
-          <a href="/product_details/<%= product._id %>">Read More</a>
-        </div>
+          <% if (product.image) { %>
+          <img
+            src="<%= product.image %>"
+            alt="Product image"
+            class="product-image"
+          />
+          <% } %>
 
-        <% if (userId) { %> <% if (product.owner_id.toString() !==
-        userId.toString()) { %>
-        <form action="/add_to_cart/<%= product._id %>" method="POST">
-          <button type="submit">Add to Cart</button>
-        </form>
-        <% } else { %>
-        <div>This is your product</div>
-        <% } %> <% } else { %>
-        <div><a href="/login">Log in</a> to add to cart</div>
-        <% } %>
-      </li>
-      <% }); %>
-    </ul>
+          <div>
+            <% let shortDesc = product.description.length > 100 ?
+            product.description.slice(0, 50) + '...' : product.description; %>
+            <p><em><%= shortDesc %></em></p>
+            <a href="/product_details/<%= product._id %>" class="neon-link"
+              >Read More</a
+            >
+          </div>
+
+          <% if (userId) { %> <% if (product.owner_id.toString() !==
+          userId.toString()) { %>
+          <form action="/add_to_cart/<%= product._id %>" method="POST">
+            <button type="submit" class="neon-button">Add to Cart</button>
+          </form>
+          <% } else { %>
+          <div class="owner-note">This is your product</div>
+          <% } %> <% } else { %>
+          <div>
+            <a href="/login" class="neon-link">Log in</a> to add to cart
+          </div>
+          <% } %>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+     <script src="/scripts/products/all_products_alert.js"></script>
   </body>
 </html>

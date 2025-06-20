@@ -1,16 +1,21 @@
 /* login.css */
 
 .retro-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.6);
   border: 2px solid #ff00cc;
   padding: 2rem;
   max-width: 400px;
-  margin: 3rem auto;
+  width: 90%;
   border-radius: 12px;
   box-shadow: 0 0 20px #ff00cc;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  z-index: 10;
 }
 
 .neon-title {
@@ -27,7 +32,7 @@
   border: 1px solid #00fff7;
   border-radius: 6px;
   color: #fff;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   outline: none;
   box-shadow: 0 0 5px #00fff7;
   transition: 0.3s;
@@ -43,7 +48,7 @@
   border: none;
   color: #fff;
   font-weight: bold;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   border-radius: 6px;
   cursor: pointer;
   box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc;
@@ -69,10 +74,23 @@
 }
 
 @keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
     text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
   }
-  20%, 24%, 55% {
+  20%,
+  24%,
+  55% {
     text-shadow: none;
   }
+}
+
+.alert-wrapper {
+  margin-top: 120px; /* компенсує fixed header */
 }

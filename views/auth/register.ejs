@@ -16,7 +16,9 @@
 
     <!-- error or success message -->
     <% if (alert_type && message) { %>
-    <p class="<%= alert_type %>"><%= message %></p>
+    <div class="alert-wrapper">
+      <p class="<%=alert_type%>"><%= message %></p>
+    </div>
     <% } %>
 
     <form action="/register" method="POST" class="retro-form">
@@ -39,11 +41,12 @@
       />
 
       <button type="submit" class="neon-button">Sign Up</button>
-    </form>
 
-    <p>
-      Already have an account?
-      <a href="/login" class="neon-link">Log in</a>
-    </p>
+      <p>
+        Already have an account?
+        <a href="/login" class="neon-link">Log in</a>
+      </p>
+    </form>
+    <script src="/scripts/products/all_products_alert.js"></script>
   </body>
 </html>

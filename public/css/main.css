@@ -75,7 +75,7 @@ nav a:hover {
 /* Повідомлення */
 .success {
   color: #00ff00;
-  background: rgba(0, 255, 0, 0.1);
+  background: transparent;
   padding: 1rem;
   border-radius: 6px;
   margin-top: 1rem;
@@ -83,7 +83,7 @@ nav a:hover {
 
 .error {
   color: #ff3333;
-  background: rgba(255, 0, 0, 0.1);
+  background: transparent;
   padding: 1rem;
   border-radius: 6px;
   margin-top: 1rem;

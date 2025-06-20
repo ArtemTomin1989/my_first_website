@@ -1,0 +1,149 @@
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid #ff00cc;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #ff00cc;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background-color: rgba(20, 20, 30, 0.8);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #00fff7;
+  box-shadow: 0 0 15px #00fff7;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px #00fff7, 0 0 40px #ff00cc;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ff00cc;
+}
+
+.owner-note {
+  color: #ccc;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.product-card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.product-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.product-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.product-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+/* і т.д. */
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.neon-title {
+  color: #ff00cc;
+  text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+.alert-wrapper {
+  margin-top: 120px; /* компенсує fixed header */
+}
+
+/* Read More (як посилання) */
+.neon-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.7rem;
+  color: #00fff7;
+  text-decoration: none;
+  background: transparent;
+  border: 2px solid #00fff7;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #00fff7, 0 0 10px #00fff7;
+  transition: all 0.3s ease;
+}
+
+.neon-link:hover {
+  background: #00fff7;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #00fff7, 0 0 20px #00fff7, 0 0 30px #ff00cc;
+  text-shadow: none;
+}
+
+/* Add to Cart (button) */
+.neon-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  color: #ff00cc;
+  background-color: transparent;
+  border: 2px solid #ff00cc;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.neon-button:hover {
+  background-color: #ff00cc;
+  color: #0f0c29;
+  box-shadow: 0 0 15px #ff00cc, 0 0 30px #00fff7;
+  transform: scale(1.05);
+}
