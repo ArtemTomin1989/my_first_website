@@ -7,7 +7,9 @@ body {
       rgba(15, 12, 41, 0.7),
       rgba(36, 36, 62, 0.7)
     ),
-    url("/uploads/images/retro_shop.jpg") no-repeat center center fixed;
+    url("https://res.cloudinary.com/dgsz7gzzt/image/upload/v1750434334/background_retro_shop_tocjxl.jpg")
+      no-repeat center center fixed;
+
   background-size: cover;
   color: #f8f8f8;
   text-align: center;
