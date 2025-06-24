@@ -52,18 +52,23 @@
 
       <div>
         <label for="image">Upload new image:</label>
-        <input type="file" name="avatar" />
+        <input type="file" name="image" />
       </div>
 
       <% if (product.image) { %>
       <div>
         <p>Current image:</p>
         <img
-          src="/<%= product.image %>"
+          src="<%= product.image %>"
           alt="Product image"
           style="max-width: 200px"
         />
         <input type="hidden" name="old_image" value="<%= product.image %>" />
+        <input
+          type="hidden"
+          name="old_public_id"
+          value="<%= product.public_id %>"
+        />
       </div>
       <% } %>
 

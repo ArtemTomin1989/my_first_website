@@ -34,7 +34,8 @@
 
 .product-image {
   max-width: 100%;
-  height: auto;
+  max-height: 200px; /* обмеження по висоті */
+  object-fit: cover; /* кадрування без деформації */
   margin-bottom: 1rem;
   border-radius: 8px;
   box-shadow: 0 0 10px #ff00cc;

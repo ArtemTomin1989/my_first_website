@@ -9,7 +9,7 @@
   <body>
     <%- include("../partials/header") %>
 
-      <!-- error or success message -->
+    <!-- error or success message -->
     <% if (alert_type && message) { %>
     <p class="<%=alert_type%>"><%= message %></p>
     <% } %>
@@ -24,7 +24,7 @@
           <% if (product.image) { %>
           <img
             src="<%= product.image %>"
-            alt="Product image"
+            alt="<%= product.name %> image"
             style="max-width: 200px; margin: 10px 0"
           /><br />
           <% } %>
@@ -33,7 +33,9 @@
         <div><em><%= product.description %></em><br /></div>
 
         <a href="/edit_my_products/<%= product._id %>">Edit</a>
-        <button class="delete-btn" data-id="<%= product._id %>">Delete Product</button>
+        <button class="delete-btn" data-id="<%= product._id %>">
+          Delete Product
+        </button>
       </li>
       <% }); %>
     </ul>

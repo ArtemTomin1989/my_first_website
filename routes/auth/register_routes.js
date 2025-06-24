@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const db_user = require("../../models/user");
 const bcrypt = require("bcryptjs");
-const empty_avatar = "uploads/avatars/empty_avatar.jpg";
+const empty_avatar =
+  "https://res.cloudinary.com/dgsz7gzzt/image/upload/v1750673976/empty_avatar_c2ub2r.jpg";
 
 const router = new Router();
 

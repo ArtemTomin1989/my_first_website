@@ -4,25 +4,25 @@ const cloudinary = require("../utils/cloudinary");
 
 const allowedTypes = ["image/jpg", "image/jpeg", "image/png"];
 
-const avatarStorage = new CloudinaryStorage({
+const productImageStorage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "avatars", // папка в Cloudinary
+    folder: "product_images", // папка в Cloudinary
     allowed_formats: ["jpg", "jpeg", "png"],
   },
 });
 
-const avatarFileFilter = (req, file, cb) => {
+const productFileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Invalid file format for avatar"), false);
+    cb(new Error("Invalid file format for product"), false);
   }
 };
 
-const upload_avatar = multer({
-  storage: avatarStorage,
-  fileFilter: avatarFileFilter,
+const upload_product_image = multer({
+  storage: productImageStorage,
+  fileFilter: productFileFilter,
 });
 
-module.exports = upload_avatar;
+module.exports = upload_product_image;

@@ -25,6 +25,7 @@ router.get("/:id", async (req, res) => {
     });
   } catch (error) {
     console.log(`Error loading product: ${error.message}`);
+    const products = await db_product.find();
     return res.render("products/all_products.ejs", {
       products,
       userId: userId || "",
