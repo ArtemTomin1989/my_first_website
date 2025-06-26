@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
         password: hashedPassword,
         nickname: "",
         avatar: empty_avatar,
+        public_id: null,
         age: 18,
         bio: "",
         phoneNumber: "",

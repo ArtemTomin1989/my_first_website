@@ -18,7 +18,7 @@ router.post("/:productId", isAuthenticated, async (req, res) => {
       { $pull: { cart: productId } } // фактичне видалення з масиву
     );
 
-    const user = await db_user.findById(userId);
+    const user = await db_user.findById(userId).populate("cart");
 
     return res.render("cart/cart.ejs", {
       alert_type: "success",

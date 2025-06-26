@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs");
 const router = new Router();
 const db_user = require("../../models/user");
 const isAuthenticated = require("../../middlewares/is_auth");
+const upload_avatar = require("../../middlewares/upload_avatar");
+const cloudinary = require("../../utils/cloudinary");
 
 router.get("/", isAuthenticated, async (req, res) => {
   try {
@@ -21,26 +23,56 @@ router.get("/", isAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/", isAuthenticated, async (req, res) => {
-  try {
-    const { nickname, age, bio, phoneNumber, location } = req.body;
-
-    await db_user.findByIdAndUpdate(req.session.userId, {
+router.post(
+  "/",
+  isAuthenticated,
+  upload_avatar.single("avatar"),
+  async (req, res) => {
+    const {
       nickname,
       age,
       bio,
       phoneNumber,
       location,
-    });
+      old_avatar,
+      old_public_id,
+    } = req.body;
 
-    return res.redirect("/my_profile");
-  } catch (error) {
-    return res.render("profile/edit_profile.ejs", {
-      alert_type: "error",
-      message: `Error updating profile: ${error.message}`,
-    });
+    let avatar = old_avatar;
+    let public_id = old_public_id;
+
+    try {
+      if (req.file) {
+        avatar = req.file.path;
+        public_id = req.file.filename;
+
+        const is_default = old_avatar.includes("empty_avatar");
+        if (!is_default && old_public_id) {
+          await cloudinary.uploader.destroy(old_public_id);
+        }
+      }
+
+      await db_user.findByIdAndUpdate(req.session.userId, {
+        nickname,
+        age,
+        bio,
+        phoneNumber,
+        location,
+        avatar,
+        public_id,
+      });
+
+      return res.redirect("/my_profile");
+    } catch (error) {
+      const user = await db_user.findById(req.session.userId);
+      return res.render("profile/edit_profile.ejs", {
+        alert_type: "error",
+        message: `Error updating profile: ${error.message}`,
+        user,
+      });
+    }
   }
-});
+);
 
 router.post("/delete_profile", isAuthenticated, async (req, res) => {
   try {

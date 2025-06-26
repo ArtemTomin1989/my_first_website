@@ -20,7 +20,7 @@ router.post("/:id", isAuthenticated, async (req, res) => {
 
     return res.render("products/my_products.ejs", {
       alert_type: "success",
-      message: "Product and image deleted from Cloudinary",
+      message: "Product and image deleted",
       my_products,
     });
   } catch (error) {

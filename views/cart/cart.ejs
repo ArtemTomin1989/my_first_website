@@ -15,10 +15,23 @@
 
     <% if (products.length === 0) { %>
     <p>Your cart is empty.</p>
-    <% } else { %> <% let total = 0; %> <% products.forEach(product => { %> <%
-    total += product.price; %>
+    <% } else { %> <% let total = 0; %>
+
+    <!-- <br> -->
+
+    <% products.forEach(product => { %> <% total += product.price; %>
+
     <div>
       <h2><%= product.name %></h2>
+
+      <% if (product.image) { %>
+      <img
+        src="<%= product.image %>"
+        alt="Product image"
+        style="max-width: 200px; display: block; margin: 10px 0"
+      />
+      <% } %>
+
       <p>Price: <%= product.price %> UAH</p>
       <p><%= product.description %></p>
 

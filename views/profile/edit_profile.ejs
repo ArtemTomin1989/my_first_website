@@ -15,11 +15,22 @@
 
     <h1>Edit Profile</h1>
 
-    <% if (user.avatarUrl) { %>
-    <img src="<%= user.avatarUrl %>" alt="Avatar" width="120" />
-    <% } %>
+    <form action="/edit_profile" method="POST" enctype="multipart/form-data">
+      <% if (user.avatar) { %>
+      <div>
+        <p>Current avatar:</p>
+        <img src="<%= user.avatar %>" alt="Avatar" style="max-width: 200px" />
+        <input type="hidden" name="old_avatar" value="<%= user.avatar %>" />
+      </div>
+      <% } %> <% if (user.public_id) { %>
+      <input type="hidden" name="old_public_id" value="<%= user.public_id %>" />
+      <% } %>
 
-    <form action="/edit_profile" method="POST">
+      <div>
+        <label for="avatar">Upload new avatar:</label>
+        <input type="file" name="avatar" />
+      </div>
+
       <label for="nickname">Nickname</label>
       <input
         type="text"
