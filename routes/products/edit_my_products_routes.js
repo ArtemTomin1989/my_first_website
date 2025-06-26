@@ -43,6 +43,8 @@ router.post(
         if (old_public_id) {
           await cloudinary.uploader.destroy(old_public_id);
         }
+      } else if (!req.file && old_image === empty_image) {
+        public_id = null;
       }
 
       await db_product.findByIdAndUpdate(req.params.id, {

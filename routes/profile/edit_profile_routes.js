@@ -76,7 +76,7 @@ router.post(
 
 router.post("/delete_profile", isAuthenticated, async (req, res) => {
   try {
-    let userId = req.session.userId;
+    const userId = req.session.userId;
     const { password } = req.body;
 
     const user = await db_user.findById(userId);
@@ -85,12 +85,15 @@ router.post("/delete_profile", isAuthenticated, async (req, res) => {
     }
 
     const is_same = await bcrypt.compare(password, user.password);
-
     if (!is_same) {
       return res.render("auth/login.ejs", {
         alert_type: "error",
         message: "Incorrect password",
       });
+    }
+
+    if (user.public_id) {
+      await cloudinary.uploader.destroy(user.public_id);
     }
 
     await db_user.findByIdAndDelete(userId);
@@ -100,7 +103,6 @@ router.post("/delete_profile", isAuthenticated, async (req, res) => {
         console.error("Session destroy error:", error);
       }
       console.log("User was successfully deleted");
-
       return res.redirect("/");
     });
   } catch (error) {
