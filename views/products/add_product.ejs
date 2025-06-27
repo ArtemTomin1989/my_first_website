@@ -4,34 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Product</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/products/add_product.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <%- include("../partials/header") %>
-
-    <!-- error or success message -->
-    <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <%- include("../partials/header") %> <% if (alert_type && message) { %>
+    <div class="alert-wrapper">
+      <p class="<%=alert_type%>"><%= message %></p>
+    </div>
     <% } %>
 
-    <form action="/add_product" method="POST" enctype="multipart/form-data">
-      <h1>Add Product</h1>
-      <input type="text" name="name" placeholder="Product Name" required />
-      <input type="number" name="price" placeholder="Price" required />
-      <textarea
-        name="description"
-        placeholder="Product Description"
-        required
-      ></textarea>
-      <div class="input-field">
-        <label for="image">
-          <h5>Please select photo of product (jpg/png/jpeg)</h5>
-        </label>
-        <br />
-        <input type="file" name="image" />
-      </div>
-      <button type="submit">Add Product</button>
-    </form>
+    <div class="add-product-container">
+      <h1 class="neon-title">Add Product</h1>
 
-    <a href="/all_products">View Products</a>
+      <form
+        class="add-product-form"
+        action="/add_product"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <input type="text" name="name" placeholder="Product Name" required />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price ($)"
+          required
+          min="0"
+        />
+
+        <textarea
+          name="description"
+          placeholder="Product Description"
+          required
+        ></textarea>
+
+        <div class="file-input-wrapper">
+          <label for="real-file" class="custom-file-label neon-button"
+            >Choose File</label
+          >
+          <input
+            type="file"
+            id="real-file"
+            name="image"
+            class="hidden-file-input"
+          />
+          <span id="custom-text" class="file-name-text">No file chosen</span>
+        </div>
+
+        <button type="submit" class="neon-button">Add Product</button>
+      </form>
+
+      <a href="/all_products" class="neon-link">View All Products</a>
+    </div>
+    <script src="/scripts/products/add_product.js"></script>
   </body>
 </html>

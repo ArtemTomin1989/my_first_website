@@ -1,0 +1,195 @@
+.add-product-container {
+  max-width: 600px;
+  margin: 130px auto 2rem auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border: 2px solid #ff00cc;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #ff00cc;
+  text-align: center;
+}
+
+/* Заголовок */
+.neon-title {
+  color: #ff00cc;
+  text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+/* Форма */
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Інпути */
+.add-product-form input,
+.add-product-form textarea {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f8f8f8;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #00fff7;
+  transition: 0.3s;
+}
+
+.add-product-form input:focus,
+.add-product-form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 15px #ff00cc;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* File input */
+.file-input-wrapper {
+  text-align: left;
+  color: #f8f8f8;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.file-input-wrapper label {
+  display: block;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+  color: #00fff7;
+  margin-bottom: 0.5rem;
+}
+
+.file-input-wrapper input[type="file"] {
+  background-color: transparent;
+  color: #f8f8f8;
+  border: none;
+  padding: 0.3rem;
+  font-family: "Orbitron", sans-serif;
+  cursor: pointer;
+}
+
+/* Стилі кнопок */
+.neon-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  color: #00fff7;
+  background-color: transparent;
+  border: 2px solid #ff00cc;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.neon-button:hover {
+  background-color: #ff00cc;
+  color: #0f0c29;
+  box-shadow: 0 0 15px #ff00cc, 0 0 30px #00fff7;
+  transform: scale(1.05);
+}
+
+/* Посилання (View All Products) */
+.neon-link {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.6rem 1.2rem;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.7rem;
+  color: #00fff7;
+  text-decoration: none;
+  background: transparent;
+  border: 2px solid #00fff7;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #00fff7, 0 0 10px #00fff7;
+  transition: all 0.3s ease;
+}
+
+.neon-link:hover {
+  background: #00fff7;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #00fff7, 0 0 20px #00fff7, 0 0 30px #ff00cc;
+  text-shadow: none;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.custom-file-label {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  color: #ff00cc;
+  background-color: transparent;
+  border: 2px solid #ff00cc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.custom-file-label:hover {
+  background-color: #ff00cc;
+  color: #0f0c29;
+  box-shadow: 0 0 15px #ff00cc, 0 0 30px #00fff7;
+  transform: scale(1.05);
+}
+
+.file-name-text {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  color: #00fff7;
+  font-family: "Orbitron", sans-serif;
+  text-shadow: 0 0 5px #00fff7;
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem 0;
+  margin-top: 1rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
