@@ -62,3 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const realFileBtn = document.getElementById("real-file");
+  const customTxt = document.getElementById("custom-text");
+
+  realFileBtn.addEventListener("change", () => {
+    if (realFileBtn.files.length > 0) {
+      customTxt.innerText = realFileBtn.files[0].name;
+    } else {
+      customTxt.innerText = "No file chosen";
+    }
+  });
+});

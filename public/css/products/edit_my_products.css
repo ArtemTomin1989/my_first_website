@@ -1,56 +1,295 @@
-/* Стилі для модального фону */
+/* Контейнер форми */
+.edit-product-form {
+  max-width: 600px; /* Зменшив ширину як у add_product */
+  margin: 130px auto 2rem auto; /* Центрування і відступи як у add_product */
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.6); /* Приглушений фон */
+  border: 2px solid #ff00cc; /* Рожевий контур */
+  border-radius: 12px;
+  box-shadow: 0 0 30px #ff00cc; /* Світло рожеве */
+  text-align: center; /* Центруємо весь вміст */
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Заголовок */
+.page-title {
+  font-size: 2rem;
+  color: #ff00cc;
+  text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  margin-bottom: 1rem;
+  animation: flicker 2s infinite;
+}
+
+/* Група форми */
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%; /* Щоб інпути займали всю ширину групи */
+  text-align: center; /* Центруємо мітки та інпути */
+}
+
+/* Мітка */
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ff00cc;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff00cc;
+}
+
+/* Інпути */
+.form-input,
+.form-textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1); /* Приглушений світлий фон */
+  color: #f8f8f8;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #ff00cc; /* Світло рожеве */
+  transition: 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 15px #ff00cc;
+}
+
+textarea.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Кнопки */
+.btn {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.neon-button.save-btn {
+  color: #ff00cc;
+  border: 2px solid #ff00cc;
+  background-color: transparent;
+  box-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc;
+}
+
+.neon-button.save-btn:hover {
+  background: #ff00cc;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #00fff7;
+}
+
+.neon-link.cancel-link {
+  color: #ff00cc;
+  border: 2px solid #ff00cc;
+  background-color: transparent;
+  box-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc;
+}
+
+.neon-link.cancel-link:hover {
+  background: #ff00cc;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #00fff7;
+}
+
+/* Поточне зображення */
+.current-image-group {
+  text-align: center;
+}
+
+.current-image-label {
+  color: #ccc;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.current-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #ff00cc;
+  margin-top: 1rem;
+}
+
+/* Видалення зображення */
+.delete-image-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.delete-image-btn {
+  color: #ff3333;
+  border: 2px solid #ff3333;
+  background-color: transparent;
+  box-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
+}
+
+.delete-image-btn:hover {
+  background: #ff3333;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #ff3333, 0 0 20px #ff00cc;
+}
+
+/* Кнопка видалення продукту */
+.delete-btn {
+  margin-top: 2rem;
+  color: #ff3333;
+  border: 2px solid #ff3333;
+  background-color: transparent;
+  box-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
+}
+
+.delete-btn:hover {
+  background: #ff3333;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #ff3333, 0 0 20px #ff00cc;
+}
+
+/* Модальні вікна — стилі як у main */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* затемнення */
+  background-color: rgba(15, 12, 41, 0.9); /* затемнення */
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
+  z-index: 1000; /* НЕ ВИЩЕ за header! */
 }
 
-/* Стилі для вмісту модального вікна */
 .modal-content {
-  background: #fff;
-  padding: 24px 32px;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background-color: #1a1a2e;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid #ff00cc;
+  box-shadow: 0 0 20px #ff00cc;
   text-align: center;
   max-width: 400px;
   width: 90%;
-  font-family: Arial, sans-serif;
+  z-index: 1001; /* завжди вище за modal фон */
 }
 
-/* Приховане модальне вікно */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* Стилі для кнопок */
+.modal-content p {
+  margin-bottom: 1.5rem;
+}
+
 .modal-content button {
-  padding: 10px 20px;
-  margin: 10px 5px 0 5px;
-  border: none;
-  border-radius: 6px;
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.9rem;
+  color: #00fff7;
+  background-color: transparent;
+  border: 2px solid #00fff7;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-}
-
-/* Кнопка підтвердження */
-.modal-content button[type="submit"] {
-  background-color: #e53935;
-  color: white;
-}
-
-/* Кнопка скасування */
-.modal-content button#cancelBtn {
-  background-color: #ccc;
-  color: #333;
+  box-shadow: 0 0 5px #00fff7, 0 0 10px #00fff7;
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .modal-content button:hover {
-  opacity: 0.9;
+  background: #00fff7;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00cc;
+}
+
+.modal-content button[type="submit"] {
+  color: #ff3333;
+  border-color: #ff3333;
+  box-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
+}
+
+.modal-content button[type="submit"]:hover {
+  background: #ff3333;
+  color: #0f0c29;
+  box-shadow: 0 0 10px #ff3333, 0 0 20px #ff00cc;
+}
+
+/* Alert wrapper */
+.alert-message {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ========== Custom file input styles ========== */
+.custom-file-label:hover {
+  background-color: #ff00cc;
+  color: #0f0c29;
+  box-shadow: 0 0 15px #ff00cc, 0 0 30px #00fff7;
+  transform: scale(1.05);
+}
+
+.file-input-wrapper {
+  width: 100%; /* Займає всю ширину */
+  margin-top: 1rem;
+  text-align: center; /* Центруємо кнопку і текст */
+  color: #f8f8f8;
+  font-size: 0.9rem;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.custom-file-label {
+  display: block;
+  width: 100%; /* На всю ширину контейнера */
+  cursor: pointer;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  color: #ff00cc;
+  background-color: transparent;
+  border: 2px solid #ff00cc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.file-name-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #00fff7;
+  font-family: "Orbitron", sans-serif;
+  text-shadow: 0 0 5px #00fff7;
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem 0;
 }
