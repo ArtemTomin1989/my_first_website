@@ -31,16 +31,24 @@ const delete_my_products_routes = require("./routes/products/delete_my_products_
 
 const port = process.env.PORT || 7777;
 
+// Налаштування proxy (обов'язково для Vercel / HTTPS)
+app.set("trust proxy", 1);
+
 app.use(express.json());
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
   session({
-    secret: `${process.env.DB_USERNAME}`,
+    secret: process.env.SESSION_SECRET || "default_session_secret",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    },
   })
 );
 
