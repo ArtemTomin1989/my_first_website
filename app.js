@@ -12,6 +12,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const index_routes = require("./routes/index_routes");
 const cart_routes = require("./routes/cart/cart_routes");
@@ -31,13 +32,11 @@ const delete_my_products_routes = require("./routes/products/delete_my_products_
 
 const port = process.env.PORT || 7777;
 
-// Налаштування proxy (обов'язково для Vercel / HTTPS)
 app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
@@ -45,9 +44,16 @@ app.use(
     secret: process.env.SESSION_SECRET || "default_session_secret",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_URL,
+      collectionName: "sessions",
+      ttl: 14 * 24 * 60 * 60,
+      autoRemove: "native",
+    }),
     cookie: {
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 14 * 24 * 60 * 60 * 1000,
     },
   })
 );
@@ -60,6 +66,7 @@ app.use((req, res, next) => {
 app.engine("ejs", require("ejs").renderFile);
 app.set("view engine", "ejs");
 
+// маршрути
 app.use("/", index_routes);
 app.use("/cart", cart_routes);
 app.use("/login", login_routes);
@@ -78,7 +85,7 @@ app.use("/delete_my_products", delete_my_products_routes);
 
 const start = async () => {
   try {
-    await mongoose.connect(`${process.env.DB_URL}`);
+    await mongoose.connect(process.env.DB_URL);
 
     app.listen(port, () => {
       console.log(`Server is running on port - http://localhost:${port}`);
