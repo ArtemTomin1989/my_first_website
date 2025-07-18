@@ -1,16 +1,16 @@
 /* Контейнер форми */
 .edit-product-form {
-  max-width: 600px; /* Зменшив ширину як у add_product */
-  margin: 130px auto 2rem auto; /* Центрування і відступи як у add_product */
+  max-width: 600px;
+  margin: 130px auto 2rem auto;
   padding: 2rem;
-  background-color: rgba(0, 0, 0, 0.6); /* Приглушений фон */
-  border: 2px solid #ff00cc; /* Рожевий контур */
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #ff00cc;
   border-radius: 12px;
-  box-shadow: 0 0 30px #ff00cc; /* Світло рожеве */
-  text-align: center; /* Центруємо весь вміст */
+  box-shadow: 0 0 30px #ff00cc;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  align-items: center; /* Вирівнюємо всі елементи по центру */
 }
 
 /* Заголовок */
@@ -22,20 +22,40 @@
   animation: flicker 2s infinite;
 }
 
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
 /* Група форми */
 .form-group {
-  margin-bottom: 1.5rem;
-  width: 100%; /* Щоб інпути займали всю ширину групи */
-  text-align: center; /* Центруємо мітки та інпути */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центруємо елементи всередині групи */
 }
 
 /* Мітка */
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #ff00cc;
+  color: #00fff7;
   font-weight: bold;
   text-shadow: 0 0 5px #ff00cc;
+  text-align: left;
 }
 
 /* Інпути */
@@ -43,14 +63,25 @@
 .form-textarea {
   width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
+
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+
+  resize: none; /* забороняємо розтягування */
+  overflow-y: auto; /* скрол всередині */
+  overflow-x: hidden; /* без горизонтального скролу */
+
+  /* стилі, щоб збігалися з інпутами edit-форми */
   padding: 0.8rem;
   border: none;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1); /* Приглушений світлий фон */
+  background-color: rgba(255, 255, 255, 0.1);
   color: #f8f8f8;
   font-family: "Orbitron", sans-serif;
   font-size: 1rem;
-  box-shadow: 0 0 10px #ff00cc; /* Світло рожеве */
+  box-shadow: 0 0 10px #00fff7;
   transition: 0.3s;
 }
 
@@ -61,8 +92,28 @@
 }
 
 textarea.form-textarea {
-  resize: vertical;
   min-height: 100px;
+}
+
+.edit-product-form .form-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.edit-product-form .form-textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.edit-product-form .form-textarea::-webkit-scrollbar-thumb {
+  background: #ff00cc;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #ff00cc, 0 0 16px #ff00cc;
+}
+
+/* --- Firefox --- */
+.edit-product-form .form-textarea {
+  scrollbar-width: thin;
+  scrollbar-color: #ff00cc rgba(255, 255, 255, 0.05);
 }
 
 /* Кнопки */
@@ -79,7 +130,7 @@ textarea.form-textarea {
 }
 
 .neon-button.save-btn {
-  color: #ff00cc;
+  color: #00fff7;
   border: 2px solid #ff00cc;
   background-color: transparent;
   box-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc;
@@ -92,7 +143,7 @@ textarea.form-textarea {
 }
 
 .neon-link.cancel-link {
-  color: #ff00cc;
+  color: #00fff7;
   border: 2px solid #ff00cc;
   background-color: transparent;
   box-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc;
@@ -123,10 +174,29 @@ textarea.form-textarea {
   margin-top: 1rem;
 }
 
-/* Видалення зображення */
-.delete-image-section {
-  text-align: center;
-  margin: 2rem 0;
+.delete-buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* керує відстанню між кнопками */
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.delete-buttons-wrapper .btn {
+  margin: 0 !important;
+}
+
+.delete-buttons-wrapper .delete-image-btn,
+.delete-buttons-wrapper .delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  height: 50px;
+  min-width: 150px;
+  box-sizing: border-box;
+  line-height: 1;
 }
 
 .delete-image-btn {
@@ -266,12 +336,12 @@ input[type="number"] {
 
 .custom-file-label {
   display: block;
-  width: 100%; /* На всю ширину контейнера */
+  width: 94%; /* На всю ширину контейнера */
   cursor: pointer;
   padding: 0.8rem 1.4rem;
   font-family: "Orbitron", sans-serif;
   font-size: 1rem;
-  color: #ff00cc;
+  color: #00fff7;
   background-color: transparent;
   border: 2px solid #ff00cc;
   border-radius: 10px;

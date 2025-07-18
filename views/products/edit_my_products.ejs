@@ -21,14 +21,13 @@
     </div>
     <% } %>
 
-    <h1 class="page-title neon-title">Edit Product</h1>
-
     <form
       class="edit-product-form"
       action="/edit_my_products/<%= product._id %>"
       method="POST"
       enctype="multipart/form-data"
     >
+    <h1 class="page-title neon-title">Edit Product</h1>
       <div class="form-group">
         <label for="name" class="form-label">Name:</label>
         <input
@@ -104,21 +103,21 @@
       </div>
     </form>
 
-    <% if (product.image && product.image !== "images/empty.jpg") { %>
-    <div class="delete-image-section">
+    <div class="delete-buttons-wrapper">
+      <% if (product.image && product.image !== "images/empty.jpg") { %>
       <button
         type="button"
         id="confirmDeleteImageBtn"
-        class="btn neon-button delete-image-btn"
+        class="btn delete-image-btn"
       >
         Delete Image
       </button>
-    </div>
-    <% } %>
+      <% } %>
 
-    <button class="btn delete-btn" data-id="<%= product._id %>">
-      Delete Product
-    </button>
+      <button class="btn delete-btn" data-id="<%= product._id %>">
+        Delete Product
+      </button>
+    </div>
 
     <!-- Confirm product delete modal -->
     <div id="confirmModal" class="modal hidden">

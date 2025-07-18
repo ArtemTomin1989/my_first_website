@@ -1,50 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Cart</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/cart/cart.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include("../partials/header") %>
 
     <!-- error or success message -->
     <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <div class="alert-wrapper">
+      <p class="<%= alert_type %>"><%= message %></p>
+    </div>
     <% } %>
 
-    <h1>Your Shopping Cart</h1>
+    <div class="products-container">
+      <h1 class="neon-title">Your Shopping Cart</h1>
 
-    <% if (products.length === 0) { %>
-    <p>Your cart is empty.</p>
-    <% } else { %> <% let total = 0; %>
+      <% if (products.length === 0) { %>
+      <p class="empty-cart-message">Your cart is empty.</p>
+      <% } else { %> <% let total = 0; %>
+      <ul class="product-list">
+        <% products.forEach(product => { %> <% total += product.price; %>
+        <li class="product-card">
+          <h2><%= product.name %> - <%= product.price %> UAH</h2>
 
-    <!-- <br> -->
+          <% if (product.image) { %>
+          <img
+            src="<%= product.image %>"
+            alt="Product image"
+            class="product-image"
+          />
+          <% } %>
 
-    <% products.forEach(product => { %> <% total += product.price; %>
+          <div>
+            <% let shortDesc = product.description.length > 100 ?
+            product.description.slice(0, 50) + '...' : product.description; %>
+            <p><em><%= shortDesc %></em></p>
+            <a href="/product_details/<%= product._id %>" class="neon-link"
+              >View Details</a
+            >
+          </div>
 
-    <div>
-      <h2><%= product.name %></h2>
-
-      <% if (product.image) { %>
-      <img
-        src="<%= product.image %>"
-        alt="Product image"
-        style="max-width: 200px; display: block; margin: 10px 0"
-      />
+          <form action="/remove_from_cart/<%= product._id %>" method="POST">
+            <button type="submit" class="neon-button remove-btn">
+              Remove From Cart
+            </button>
+          </form>
+        </li>
+        <% }) %>
+      </ul>
+      <h3 class="cart-total">Total: <%= total %> UAH</h3>
       <% } %>
 
-      <p>Price: <%= product.price %> UAH</p>
-      <p><%= product.description %></p>
-
-      <form action="/remove_from_cart/<%= product._id %>" method="POST">
-        <button type="submit">Remove From Cart</button>
-      </form>
-      <hr />
+      <a href="/all_products" class="neon-link back-link">Back to Products</a>
     </div>
-    <% }) %>
-
-    <h3>Total: <%= total %> UAH</h3>
-    <% } %>
-
-    <a href="/all_products">Back to list</a>
   </body>
 </html>

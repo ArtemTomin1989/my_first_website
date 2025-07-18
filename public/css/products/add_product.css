@@ -44,8 +44,7 @@
 }
 
 /* Інпути */
-.add-product-form input,
-.add-product-form textarea {
+.add-product-form input {
   padding: 0.8rem;
   border: none;
   border-radius: 8px;
@@ -55,6 +54,48 @@
   font-size: 1rem;
   box-shadow: 0 0 10px #00fff7;
   transition: 0.3s;
+}
+
+.add-product-form textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 100px; /* фіксуємо висоту */
+  min-height: 100px; /* підстраховка */
+  max-height: 100px; /* підстраховка */
+  resize: none; /* вимикаємо зміну розміру + зникає “ручка” */
+  overflow-y: auto; /* скрол всередині, якщо тексту більше */
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f8f8f8;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #00fff7;
+  transition: 0.3s;
+}
+
+/* Кастомний скролбар для Chrome, Edge, Safari */
+.add-product-form textarea::-webkit-scrollbar {
+  width: 8px; /* тонкий скролбар */
+}
+
+.add-product-form textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05); /* прозорий трек */
+  border-radius: 8px;
+}
+
+.add-product-form textarea::-webkit-scrollbar-thumb {
+  background: #ff00cc; /* неоновий рожевий */
+  border-radius: 8px;
+  box-shadow: 0 0 8px #ff00cc, 0 0 16px #ff00cc; /* glow ефект */
+}
+
+/* Підтримка Firefox */
+.add-product-form textarea {
+  scrollbar-width: thin;
+  scrollbar-color: #ff00cc rgba(255, 255, 255, 0.05);
 }
 
 .add-product-form input:focus,
