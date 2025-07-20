@@ -1,0 +1,264 @@
+/* --- CSS змінні (опційно; fallback якщо не визначені глобально) --- */
+:root {
+  --neon-pink: #ff00cc;
+  --neon-cyan: #00fff7;
+  --profile-max-width: 800px;
+  --header-offset: 120px; /* під fixed header; підлаштуй */
+}
+
+/* --- Тіло профілю (додаємо уточнення до глобального body) --- */
+.profile-body {
+  /* глобальний фон уже у main.css */
+  text-align: center; /* базово */
+}
+
+/* Компенсація fixed header + центрування */
+.profile-container {
+  max-width: var(--profile-max-width);
+  margin: var(--header-offset) auto 4rem auto;
+  padding: 2.5rem 2rem 3rem;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 2px solid var(--neon-pink);
+  border-radius: 16px;
+  box-shadow: 0 0 30px var(--neon-pink), 0 0 50px rgba(255, 0, 204, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fadeInProfile 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInProfile {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Заголовок (використовує глобальний .neon-title; додаємо трохи відступу) --- */
+.profile-container .neon-title {
+  margin-bottom: 2rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+/* --- Аватар --- */
+.avatar-wrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  max-width: 40vw;
+  max-height: 40vw;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-pink);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: avatarPulse 3s ease-in-out infinite;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05) rotate(1deg);
+  box-shadow: 0 0 15px var(--neon-cyan), 0 0 35px var(--neon-pink);
+}
+
+@keyframes avatarPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-pink);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-cyan);
+  }
+}
+
+/* --- Список деталей профілю --- */
+.profile-details-list {
+  list-style: none;
+  margin: 0 auto 2.5rem auto;
+  padding: 0;
+  max-width: 600px;
+  display: grid;
+  gap: 1rem;
+}
+
+/* Кожен рядок як міні-картка (легкий неон) */
+.profile-detail {
+  background: rgba(20, 20, 30, 0.8);
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 10px;
+  box-shadow: 0 0 8px var(--neon-cyan);
+  display: grid;
+  grid-template-columns: minmax(90px, auto) 1fr;
+  align-items: center;
+  column-gap: 1rem;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(25px);
+  animation: detailFade 0.5s ease forwards;
+}
+
+@keyframes detailFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger (як у product-card) */
+.profile-detail:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.profile-detail:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.profile-detail:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.profile-detail:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.profile-detail:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.profile-detail:nth-child(6) {
+  animation-delay: 0.3s;
+}
+.profile-detail:nth-child(7) {
+  animation-delay: 0.35s;
+}
+.profile-detail:nth-child(8) {
+  animation-delay: 0.4s;
+}
+
+/* Hover-глоу */
+.profile-detail:hover {
+  box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-pink);
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Текст усередині */
+.detail-label {
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
+  white-space: nowrap;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: #f8f8f8;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+  overflow-wrap: anywhere;
+}
+
+/* Якщо значення довге (біо, емейл) — розриваємо */
+.profile-detail .detail-value {
+  word-break: break-word;
+}
+
+/* --- Кнопка редагування профілю --- */
+/* Ти вже підключаєш .neon-link / .neon-button з my_products.css; нижче легкі доповнення */
+.profile-edit-btn {
+  margin-top: 1rem;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-width: 2px;
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  background-color: transparent;
+  border-radius: 8px; /* обрізані кути */
+  box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+  display: inline-block;
+  transition: all 0.3s ease; 
+  text-decoration: none;
+}
+
+.profile-edit-btn:hover {
+  background: var(--neon-cyan);
+  color: #0f0c29;
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 25px var(--neon-pink);
+  transform: scale(1.05);
+}
+
+.alert-wrapper {
+  margin-top: calc(var(--header-offset) + 0.5rem);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 2rem 1.25rem 2.5rem;
+    margin-top: calc(var(--header-offset) + 1rem);
+  }
+
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-detail {
+    grid-template-columns: 1fr; /* лейбл над значенням */
+    text-align: center;
+  }
+
+  .detail-label {
+    margin-bottom: 0.25rem;
+    white-space: normal;
+  }
+
+  .profile-edit-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --profile-max-width: 900px;
+  }
+
+  .detail-label,
+  .detail-value {
+    font-size: 1.1rem;
+  }
+
+  .profile-avatar {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* --- Utility: якщо немає аватара (можеш додати умовний фон) --- */
+.profile-avatar.placeholder {
+  object-fit: contain;
+  filter: grayscale(1) opacity(0.6);
+  border-style: dashed;
+  animation: none;
+}

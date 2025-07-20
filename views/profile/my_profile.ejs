@@ -3,31 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <title>My Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/profile/profile.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
+  <body class="profile-body">
     <%- include("../partials/header") %>
 
-     <!-- error or success message -->
+    <!-- error or success message -->
     <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <div class="alert-wrapper">
+      <p class="<%= alert_type %>"><%= message %></p>
+    </div>
     <% } %>
 
-    <h1>User Profile</h1>
+    <div class="profile-container">
+      <h1 class="neon-title">User Profile</h1>
 
-    <% if (user.avatar) { %>
-    <img src="<%= user.avatar %>" alt="Avatar" width="150" />
-    <% } %>
+      <% if (user.avatar) { %>
+      <div class="avatar-wrapper">
+        <img
+          src="<%= user.avatar %>"
+          alt="Avatar"
+          width="150"
+          class="profile-avatar"
+        />
+      </div>
+      <% } %>
 
-    <ul>
-      <li>Nickname: <%= user.nickname %></li>
-      <li>Email: <%= user.email %></li>
-      <li>Age: <%= user.age %></li>
-      <li>Bio: <%= user.bio %></li>
-      <li>Phone: <%= user.phoneNumber %></li>
-      <li>City: <%= user.location %></li>
-      <li>Registered: <%= new Date(user.createdAt).toLocaleDateString() %></li>
-      <li>Last Login: <%= new Date(user.lastLogin).toLocaleDateString() %></li>
-    </ul>
-    <a href="/edit_profile">Edit Profile</a>
+      <ul class="profile-details-list">
+        <li class="profile-detail">
+          <span class="detail-label">Nickname:</span>
+          <span class="detail-value"><%= user.nickname %></span>
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">Email:</span>
+          <span class="detail-value"><%= user.email %></span>
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">Age:</span>
+          <span class="detail-value"><%= user.age %></span>
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">Bio:</span>
+          <span class="detail-value"><%= user.bio %></span>
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">Phone:</span>
+          <span class="detail-value"><%= user.phoneNumber %></span>
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">City:</span>
+          <span class="detail-value"><%= user.location %></span>
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">Registered:</span>
+          <span class="detail-value"
+            ><%= new Date(user.createdAt).toLocaleDateString() %></span
+          >
+        </li>
+        <li class="profile-detail">
+          <span class="detail-label">Last Login:</span>
+          <span class="detail-value"
+            ><%= new Date(user.lastLogin).toLocaleDateString() %></span
+          >
+        </li>
+      </ul>
+
+      <a href="/edit_profile" class="neon-link neon-button profile-edit-btn">
+        Edit Profile
+      </a>
+    </div>
+
+    <script src="/scripts/profile.js"></script>
   </body>
 </html>

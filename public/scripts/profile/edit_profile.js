@@ -3,29 +3,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalOverlay = document.getElementById("modalOverlay");
   const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
 
-  showDeleteFormBtn.addEventListener("click", () => {
-    modalOverlay.style.display = "flex";
+  const openModal = () => {
+    modalOverlay.classList.remove("hidden");
     document.body.classList.add("modal-open");
-  });
+  };
 
-  cancelDeleteBtn.addEventListener("click", () => {
-    closeModal();
-  });
+  const closeModal = () => {
+    modalOverlay.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  };
+
+  if (showDeleteFormBtn) {
+    showDeleteFormBtn.addEventListener("click", openModal);
+  }
+
+  if (cancelDeleteBtn) {
+    cancelDeleteBtn.addEventListener("click", closeModal);
+  }
 
   modalOverlay.addEventListener("click", (event) => {
-    if (event.target === modalOverlay) {
-      closeModal();
-    }
+    if (event.target === modalOverlay) closeModal();
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && modalOverlay.style.display === "flex") {
+    if (event.key === "Escape" && !modalOverlay.classList.contains("hidden")) {
       closeModal();
     }
   });
+});
 
-  function closeModal() {
-    modalOverlay.style.display = "none";
-    document.body.classList.remove("modal-open");
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("avatar");
+  const out = document.getElementById("avatar-file-name");
+  if (input && out) {
+    input.addEventListener("change", () => {
+      out.textContent = input.files?.[0]?.name || "No file chosen";
+    });
   }
 });

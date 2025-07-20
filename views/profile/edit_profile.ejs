@@ -3,89 +3,169 @@
   <head>
     <meta charset="UTF-8" />
     <title>Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/profile/edit_profile.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include("../partials/header") %>
 
-    <!-- error or success message -->
+    <!-- Повідомлення -->
     <% if (alert_type && message) { %>
-    <p class="<%=alert_type%>"><%= message %></p>
+    <div class="alert-wrapper">
+      <p class="alert-message <%=alert_type%>"><%= message %></p>
+    </div>
     <% } %>
 
-    <h1>Edit Profile</h1>
+    <form
+      class="edit-profile-form"
+      action="/edit_profile"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <h1 class="page-title neon-title">Edit Profile</h1>
 
-    <form action="/edit_profile" method="POST" enctype="multipart/form-data">
       <% if (user.avatar) { %>
-      <div>
-        <p>Current avatar:</p>
-        <img src="<%= user.avatar %>" alt="Avatar" style="max-width: 200px" />
+      <div class="form-group current-avatar-group">
+        <p class="current-avatar-label">Current avatar:</p>
+        <img
+          src="<%= user.avatar %>"
+          alt="Avatar"
+          class="current-avatar-image"
+        />
         <input type="hidden" name="old_avatar" value="<%= user.avatar %>" />
       </div>
       <% } %> <% if (user.public_id) { %>
       <input type="hidden" name="old_public_id" value="<%= user.public_id %>" />
       <% } %>
 
-      <div>
-        <label for="avatar">Upload new avatar:</label>
-        <input type="file" name="avatar" />
+      <div class="form-group file-input-wrapper">
+        <label for="avatar" class="form-label">Upload new avatar:</label>
+
+        <label for="avatar" class="custom-file-label neon-button"
+          >Choose File</label
+        >
+        <input
+          type="file"
+          id="avatar"
+          name="avatar"
+          class="hidden-file-input"
+        />
+        <span id="avatar-file-name" class="file-name-text">No file chosen</span>
       </div>
 
-      <label for="nickname">Nickname</label>
-      <input
-        type="text"
-        id="nickname"
-        name="nickname"
-        value="<%= user.nickname %>"
-        required
-      />
+      <div class="form-group">
+        <label for="nickname" class="form-label">Nickname:</label>
+        <input
+          type="text"
+          id="nickname"
+          name="nickname"
+          class="form-input"
+          value="<%= user.nickname %>"
+          required
+        />
+      </div>
 
-      <label for="age">Age</label>
-      <input type="number" id="age" name="age" value="<%= user.age %>" />
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age" class="form-label">Age:</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          class="form-input"
+          value="<%= user.age %>"
+        />
+      </div>
 
-      <label for="bio">Bio</label>
-      <textarea id="bio" name="bio" rows="3"><%= user.bio %></textarea>
+      <!-- Bio -->
+      <div class="form-group">
+        <label for="bio" class="form-label">Bio:</label>
+        <textarea id="bio" name="bio" class="form-textarea" rows="3">
+<%= user.bio %></textarea
+        >
+      </div>
 
-      <label for="phoneNumber">Phone Number</label>
-      <input
-        type="tel"
-        id="phoneNumber"
-        name="phoneNumber"
-        value="<%= user.phoneNumber %>"
-      />
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phoneNumber" class="form-label">Phone Number:</label>
+        <input
+          type="tel"
+          id="phoneNumber"
+          name="phoneNumber"
+          class="form-input"
+          value="<%= user.phoneNumber %>"
+        />
+      </div>
 
-      <label for="location">City</label>
-      <input
-        type="text"
-        id="location"
-        name="location"
-        value="<%= user.location %>"
-      />
+      <!-- City -->
+      <div class="form-group">
+        <label for="location" class="form-label">City:</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          class="form-input"
+          value="<%= user.location %>"
+        />
+      </div>
 
-      <button type="submit">Save Changes</button>
+      <div class="form-buttons">
+        <button type="submit" class="btn neon-button save-btn">
+          Save Changes
+        </button>
+        <a href="/my_profile" class="btn neon-link cancel-link">Cancel</a>
+      </div>
     </form>
 
-    <button id="showDeleteFormBtn">Delete Account</button>
+    <div class="delete-account-wrapper">
+      <button
+        id="showDeleteFormBtn"
+        type="button"
+        class="btn delete-btn delete-account-btn"
+      >
+        Delete Account
+      </button>
+    </div>
 
-    <div id="modalOverlay" style="display: none">
-      <div id="deleteModal">
+    <div id="modalOverlay" class="modal hidden">
+      <div id="deleteModal" class="modal-content">
         <form
           id="deleteForm"
+          class="delete-account-form"
           action="/edit_profile/delete_profile"
           method="POST"
         >
-          <label for="password">Enter your password to confirm:</label>
-          <input type="password" id="password" name="password" required />
+          <label for="password" class="form-label"
+            >Enter your password to confirm:</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-input"
+            required
+          />
 
-          <div style="margin-top: 10px">
-            <button type="submit">Confirm Delete</button>
-            <button type="button" id="cancelDeleteBtn">Cancel</button>
+          <div class="form-buttons modal-buttons">
+            <button type="submit" class="btn confirm-btn">
+              Confirm Delete
+            </button>
+            <button
+              type="button"
+              id="cancelDeleteBtn"
+              class="btn cancel-btn neon-button"
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>
     </div>
-
-    <a href="/my_profile">Back to Profile</a>
 
     <script src="/scripts/profile/edit_profile.js"></script>
   </body>

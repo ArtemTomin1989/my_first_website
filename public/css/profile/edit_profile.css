@@ -1,24 +1,449 @@
-#modalOverlay {
+/* =========================================
+   EDIT PROFILE PAGE
+   File: /css/profile/edit_profile.css
+   Depends on: /css/main.css (globals)
+   ========================================= */
+
+/* --- CSS variables (fallbacks) --- */
+:root {
+  --neon-pink: #ff00cc;
+  --neon-cyan: #00fff7;
+  --danger-red: #ff3333;
+  --header-offset: 130px; /* простір під fixed header */
+  --edit-form-max-width: 600px;
+  --radius: 8px;
+  --transition-speed: 0.3s;
+  --field-height: 48px;
+}
+
+/* -----------------------------------------
+   Form container
+----------------------------------------- */
+.edit-profile-form {
+  max-width: var(--edit-form-max-width);
+  margin: calc(var(--header-offset) + 1rem) auto 2rem auto;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--neon-pink);
+  border-radius: 12px;
+  box-shadow: 0 0 30px var(--neon-pink);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: epFadeIn 0.6s ease forwards;
+}
+
+@keyframes epFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -----------------------------------------
+   Page title (неон, мерехтіння як у прикладі)
+----------------------------------------- */
+.edit-profile-form .page-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  animation: epFlicker 2s infinite;
+}
+
+@keyframes epFlicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink),
+      0 0 20px var(--neon-pink);
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+/* -----------------------------------------
+   Form group wrapper
+----------------------------------------- */
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* центруємо всередині */
+}
+
+/* Label */
+.form-label {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  color: var(--neon-cyan);
+  font-weight: bold;
+  font-family: "Orbitron", sans-serif;
+  text-shadow: 0 0 5px var(--neon-pink);
+  text-align: left;
+}
+
+/* -----------------------------------------
+   Inputs & Textarea
+----------------------------------------- */
+.form-input,
+.form-textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.8rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  color: #f8f8f8;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: 0 0 10px var(--neon-cyan);
+  transition: all var(--transition-speed) ease;
+  text-decoration: none;
+}
+
+.form-input {
+  height: var(--field-height);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 15px var(--neon-pink);
+}
+
+/* Textarea size/behavior */
+.form-textarea {
+  min-height: 100px;
+  max-height: 220px;
+  resize: vertical; /* можеш змінити на none якщо не треба */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar (WebKit) */
+.form-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+.form-textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+}
+.form-textarea::-webkit-scrollbar-thumb {
+  background: var(--neon-pink);
+  border-radius: var(--radius);
+  box-shadow: 0 0 8px var(--neon-pink), 0 0 16px var(--neon-pink);
+}
+/* Firefox */
+.form-textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-pink) rgba(255, 255, 255, 0.05);
+}
+
+/* Remove number spinners (age) */
+input[type="number"].form-input::-webkit-inner-spin-button,
+input[type="number"].form-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"].form-input {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* -----------------------------------------
+   Current avatar preview
+----------------------------------------- */
+.current-avatar-group {
+  text-align: center;
+}
+.current-avatar-label {
+  color: #ccc;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.current-avatar-image {
+  max-width: 200px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-pink);
+  margin-top: 0.5rem;
+}
+
+/* -----------------------------------------
+   Custom file input (Upload new avatar)
+----------------------------------------- */
+.file-input-wrapper {
+  width: 100%;
+  margin-top: 0.5rem;
+  text-align: center;
+  color: #f8f8f8;
+  font-size: 0.9rem;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.custom-file-label {
+  display: block;
+  width: 94%;
+  margin: 0 auto;
+  cursor: pointer;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  color: var(--neon-cyan);
+  background-color: transparent;
+  border: 2px solid var(--neon-pink);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+  transition: all var(--transition-speed) ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.custom-file-label:hover {
+  background-color: var(--neon-pink);
+  color: #0f0c29;
+  box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-cyan);
+  transform: scale(1.05);
+}
+
+.file-name-text {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+  font-family: "Orbitron", sans-serif;
+  text-shadow: 0 0 5px var(--neon-cyan);
+  text-align: center;
+  word-break: break-all;
+}
+
+/* -----------------------------------------
+   Buttons row (Save / Cancel)
+----------------------------------------- */
+.form-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.95rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-speed) ease;
+}
+
+/* Save */
+.neon-button.save-btn {
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-pink);
+  background-color: transparent;
+  box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+}
+.neon-button.save-btn:hover {
+  background: var(--neon-pink);
+  color: #0f0c29;
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-cyan);
+}
+
+/* Cancel */
+.neon-link.cancel-link {
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-pink);
+  background-color: transparent;
+  box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+  text-decoration: none;
+}
+.neon-link.cancel-link:hover {
+  background: var(--neon-pink);
+  color: #0f0c29;
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-cyan);
+}
+
+/* -----------------------------------------
+   Delete Account trigger button
+----------------------------------------- */
+.delete-account-wrapper {
+  margin-top: 2rem;
+  text-align: center;
+}
+.delete-account-btn {
+  margin-top: 1rem;
+  color: var(--danger-red);
+  border: 2px solid var(--danger-red);
+  background-color: transparent;
+  box-shadow: 0 0 5px var(--danger-red), 0 0 10px var(--danger-red);
+}
+.delete-account-btn:hover {
+  background: var(--danger-red);
+  color: #0f0c29;
+  box-shadow: 0 0 10px var(--danger-red), 0 0 20px var(--neon-pink);
+}
+
+/* -----------------------------------------
+   Modal (confirm account delete)
+   Re-uses pattern from product modals
+----------------------------------------- */
+.modal {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(15, 12, 41, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1000; /* нижче за header? Якщо треба поверх усього, постав 2000 */
+}
+.modal.hidden {
+  display: none !important;
 }
 
-#deleteModal {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
+.modal-content {
+  background-color: #1a1a2e;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 20px var(--neon-pink);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
   z-index: 1001;
+}
+
+/* Form всередині модалки */
+.delete-account-form .form-label {
   text-align: center;
 }
+.delete-account-form .form-input {
+  margin-top: 1rem;
+}
 
-body.modal-open {
+/* Modal buttons */
+.modal-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Confirm (red) */
+.confirm-btn {
+  border: 2px solid var(--danger-red);
+  color: var(--danger-red);
+  background: transparent;
+  box-shadow: 0 0 5px var(--danger-red), 0 0 10px var(--danger-red);
+}
+.confirm-btn:hover {
+  background: var(--danger-red);
+  color: #0f0c29;
+  box-shadow: 0 0 10px var(--danger-red), 0 0 20px var(--neon-pink);
+}
+
+/* Cancel (cyan) */
+.cancel-btn {
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  background: transparent;
+  box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+  text-decoration: none;
+}
+.cancel-btn:hover {
+  background: var(--neon-cyan);
+  color: #0f0c29;
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-pink);
+}
+
+/* -----------------------------------------
+   Alert wrapper / message (rely on main.css colors)
+----------------------------------------- */
+.alert-wrapper {
+  margin-top: var(--header-offset);
+  margin-bottom: 1rem;
+}
+.alert-message {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* -----------------------------------------
+   Accessibility-only back link
+----------------------------------------- */
+.sr-only {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
+}
+.back-link {
+  text-decoration: none;
+}
+
+/* -----------------------------------------
+   Responsive tweaks
+----------------------------------------- */
+@media (max-width: 600px) {
+  .edit-profile-form {
+    padding: 1.5rem 1.25rem;
+    gap: 1rem;
+  }
+  .form-buttons {
+    flex-direction: column;
+  }
+  .custom-file-label {
+    width: 100%;
+  }
+  .file-name-text {
+    margin-top: 0.75rem;
+  }
+  .current-avatar-image {
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+
+.current-avatar-image {
+  max-width: 200px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ff00cc, 0 0 40px #00fff7;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.current-avatar-image:hover {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 25px #ff00cc, 0 0 50px #00fff7;
 }
